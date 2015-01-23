@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  category: MyString
+  difficulty: 1
+  gauge: 1
+  rows: 1
+  columns: 1
+  layout: MyText
+
+two:
+  name: MyString
+  category: MyString
+  difficulty: 1
+  gauge: 1
+  rows: 1
+  columns: 1
+  layout: MyText

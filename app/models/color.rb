@@ -1,0 +1,5 @@
+class Color < ActiveRecord::Base
+	has_and_belongs_to_many :graphs
+
+	validates_presence_of :hexadecimal
+end

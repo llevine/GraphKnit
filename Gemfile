@@ -38,3 +38,8 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'backbars'
+
+gem 'pry-rails', group: :development
+gem "rails-assets-underscore", source: "https://rails-assets.org"
+gem "rails-assets-backbone", source: "https://rails-assets.org"
