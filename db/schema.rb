@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20150123044805) do
     t.integer  "number_of_colors"
     t.text     "layout"
     t.text     "notes"
+    t.boolean  "privacy"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

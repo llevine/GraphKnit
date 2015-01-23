@@ -12,6 +12,7 @@ class CreateGraphs < ActiveRecord::Migration
       t.integer :number_of_colors
       t.text :layout
       t.text :notes
+      t.boolean :privacy
       
       t.references :user
 

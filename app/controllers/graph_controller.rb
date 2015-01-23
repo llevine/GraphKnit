@@ -33,6 +33,6 @@ class GraphController < ApplicationController
   private
 
   def graph_params
-    params.require(:graph).permit(:name, :category, :image_url, :difficulty, :gauge, :rows, :columns, :number_of_colors, :layout, :notes)
+    params.require(:graph).permit(:name, :category, :image_url, :product_image, :difficulty, :gauge, :rows, :columns, :number_of_colors, :layout, :notes, :privacy)
   end
 end
