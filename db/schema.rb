@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20150123044805) do
     t.string   "name"
     t.string   "category"
     t.string   "image_url"
+    t.string   "product_image"
     t.integer  "difficulty"
     t.integer  "gauge"
     t.integer  "rows"
