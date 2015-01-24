@@ -34,11 +34,27 @@ var App = {
 // global variable that stores the color to be used on the grid. Set the default color to black.
 var currentColor = '#000';
 
+
 // runs when the page has loaded.
 $(function(){
 	console.log('the page has loaded');
+	graphModel = new App.Models.Graph;
 	renderSwatches();
 	drawGraph();
+
+	// to download the graph as a jpeg.
+	// You can even change the file-name dynamically by setting the attribute downloadLnk.download = 'myFilename.jpg'.
+	$("#downloadLnk").click(function(){
+		alert('clicked');
+		var c = document.getElementById("graph");
+		var dt = c.toDataURL('image/jpeg');
+    this.href = dt;
+	});
+
+	$("#saveGraph").click(function(){
+		alert('graph is saved')
+		graphModel.sync();
+	});
 })
 
 // function gets the graph context
@@ -48,7 +64,7 @@ function getGraphContext(){
 }
 
 function renderSwatches(){
-		// gets each swatch class div element finds it's id and sets that id to be the background color of the div
+	// gets each swatch class div element finds it's id and sets that id to be the background color of the div
 	$('.swatch').each(function(){ 
 		var x = $(this).attr('id'); 
 		$(this).css({background: '#' + x});
@@ -62,6 +78,10 @@ function renderSwatches(){
 // adds the graph to the dom
 function drawGraph(){
 	var ctx = getGraphContext();
+
+	// adds a white rectangle behind the graph, so when download the graph as jpeg background is white, NOT black
+	ctx.fillStyle = 'white';
+	ctx.fillRect(0,0,800,800);
 	// draws the horizontal lines
 	for (var i=0; i<=40; i++){
 		// (y, x)
@@ -83,6 +103,7 @@ function drawGraph(){
       var i = Math.floor(mousePos.x/20);
       var j = Math.floor(mousePos.y/20);
       fillSquare(i,j);
+      updateLayout(i,j);
   }, false);
 }
 
@@ -102,3 +123,11 @@ function getMousePos(canvas, evt) {
     y: evt.clientY - rect.top
   };
 }
+
+function updateLayout(i,j){
+	var matrix = graphModel.get('layout');
+	matrix[i][j] = currentColor;
+}
+
+// array of colors to add to database for colorpallete
+// ['#5a5b5e','#313132','#1a1718','#caf0a1','#a1d06d','#6f8f4c','#366219','#2a4b13','#1b2f0c','#eeb7fa','#b671c7','#ab47c4','#9b00d6','#480061','#290037','#fff3b7','#ffe578','#fecd3a','#5a2f0f','#3d210a','#2a1807','#97999c','#e0e1e3','#ffffff','#a2c8fa','#62a3f8','#386eef','#2128d6','#090089','#09005b','#feb6b9','#fd9197','#f36d74','#fc2237','#fc0016','#8b000c','#fec3ad','#fd997a','#fd724c','#fd9550','#fd6725','#cc5c1f']

@@ -2,7 +2,13 @@ Rails.application.routes.draw do
   root 'application#index'
 
   resources :users
-  resources :graphs
+  ##resources :graphs
+  get 'graphs' => 'graphs#index'
+  post 'graphs' => 'graphs#create'
+  get 'graphs/:id' => 'graphs#show'
+  delete 'graphs/:id' => 'graphs#destroy'
+  put 'graphs' => 'graphs#update'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

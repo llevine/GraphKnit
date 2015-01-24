@@ -14,6 +14,10 @@
  *= require_self
  */
 
+body {
+	background: grey;
+}
+
 .swatch {
 	width: 50px;
 	height: 50px;
