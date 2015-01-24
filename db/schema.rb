@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20150123044805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "colors", force: true do |t|
+  create_table "cells", force: true do |t|
     t.string   "hexadecimal"
     t.text     "yarn"
     t.datetime "created_at"
