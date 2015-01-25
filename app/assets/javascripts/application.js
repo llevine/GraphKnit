@@ -23,6 +23,7 @@
 //= require_tree ./backbone/views
 //= require_tree ./templates
 //= require_tree .
+
 var App = {
 	Models: {}, 
 	Collections: {}, 
@@ -34,27 +35,41 @@ var App = {
 // global variable that stores the color to be used on the grid. Set the default color to black.
 var currentColor = '#000';
 
+function setCurrentColor(selection){
+	currentColor = selection;
+}
 
 // runs when the page has loaded.
 $(function(){
+	
 	console.log('the page has loaded');
-	graphModel = new App.Models.Graph;
-	renderSwatches();
-	drawGraph();
+	if ($('#createGraph').length === 1){
+		graphModel = new App.Models.Graph;
+		// renderSwatches();
+		drawGraph();
+		addClickListener();
+		// to download the graph as a jpeg.
+		// You can even change the file-name dynamically by setting the attribute downloadLnk.download = 'myFilename.jpg'.
+		$("#downloadLnk").click(function(){
+			console.log('graph has been downloaded');
+			var c = document.getElementById("graph");
+			var dt = c.toDataURL('image/jpeg');
+	    this.href = dt;
+		});
 
-	// to download the graph as a jpeg.
-	// You can even change the file-name dynamically by setting the attribute downloadLnk.download = 'myFilename.jpg'.
-	$("#downloadLnk").click(function(){
-		alert('clicked');
-		var c = document.getElementById("graph");
-		var dt = c.toDataURL('image/jpeg');
-    this.href = dt;
-	});
+		$("#saveGraph").click(function(){
+			alert("You clicked save!");
+			var isNew = (graphModel.id == null);
+			graphModel.save(null, {
+				success: function() {
+					if (isNew) {
+						$('#actions').append('<a href="#" onclick="loadGraph(' + graphModel.id + ')">' + graphModel.id + '</a>');
+					}
+				}
+			});
 
-	$("#saveGraph").click(function(){
-		alert('graph is saved')
-		graphModel.sync();
-	});
+		});
+	}
 })
 
 // function gets the graph context
@@ -63,17 +78,18 @@ function getGraphContext(){
 	return c.getContext("2d");
 }
 
-function renderSwatches(){
-	// gets each swatch class div element finds it's id and sets that id to be the background color of the div
-	$('.swatch').each(function(){ 
-		var x = $(this).attr('id'); 
-		$(this).css({background: '#' + x});
-		$(this).click(function(){
-			currentColor = '#' + x;
-				//alert(currentColor);
-		});
-	});
-}
+// // this doesn't work right now. have to rework it.
+// function renderSwatches(){
+// 	// gets each swatch class div element finds it's id and sets that id to be the background color of the div
+// 	$('.swatch').each(function(){ 
+// 		var x = $(this).attr('id'); 
+// 		$(this).css({background: '#' + x});
+// 		$(this).click(function(){
+// 			currentColor = '#' + x;
+// 				//alert(currentColor);
+// 		});
+// 	});
+// }
 
 // adds the graph to the dom
 function drawGraph(){
@@ -95,6 +111,9 @@ function drawGraph(){
 		ctx.lineTo(i*20, 800);
 		ctx.stroke();
 	}
+}
+
+function addClickListener() {
 	// gets the graph and adds a click listener to each cell
 	var c = document.getElementById("graph"); 
 	c.addEventListener('click', function(evt) {
@@ -105,6 +124,23 @@ function drawGraph(){
       fillSquare(i,j);
       updateLayout(i,j);
   }, false);
+}
+
+function loadGraph(g_id) {
+	drawGraph();
+	graphModel = new App.Models.Graph({id: g_id});
+	graphModel.fetch({
+		success: function() {
+			graphModel.get('layout').split('|').forEach(function(triple) {
+				var t = triple.split(",");
+				if (t.length == 3) {
+					currentColor = t[2];
+					fillSquare(t[0], t[1]);
+				}
+			});
+		},
+		error: function() { alert("Object doesn't exist!"); }
+	});
 }
 
 // fills the clicked square with the selected color
@@ -125,9 +161,7 @@ function getMousePos(canvas, evt) {
 }
 
 function updateLayout(i,j){
-	var matrix = graphModel.get('layout');
-	matrix[i][j] = currentColor;
+	var s = graphModel.get('layout');
+	s += "|" + i + "," + j + "," + currentColor;
+	graphModel.set('layout', s);
 }
-
-// array of colors to add to database for colorpallete
-// ['#5a5b5e','#313132','#1a1718','#caf0a1','#a1d06d','#6f8f4c','#366219','#2a4b13','#1b2f0c','#eeb7fa','#b671c7','#ab47c4','#9b00d6','#480061','#290037','#fff3b7','#ffe578','#fecd3a','#5a2f0f','#3d210a','#2a1807','#97999c','#e0e1e3','#ffffff','#a2c8fa','#62a3f8','#386eef','#2128d6','#090089','#09005b','#feb6b9','#fd9197','#f36d74','#fc2237','#fc0016','#8b000c','#fec3ad','#fd997a','#fd724c','#fd9550','#fd6725','#cc5c1f']

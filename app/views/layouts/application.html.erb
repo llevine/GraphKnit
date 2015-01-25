@@ -7,12 +7,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<a id="saveGraph">Save</a>
-<a id="downloadLnk" download="YourFileName.jpg">Download Graph</a>
+<!-- 	<div id='cssmenu'>
+		<ul>
+		   <li class='active'><a href='#'><span>GraphKnit</span></a></li>
+		   <li><a href='#'><span>Profile</span></a></li>
+		   <li><a href='#'><span>Graphs</span></a></li>
+		   <li class='last'><a href='#'><span>Contact</span></a></li>
+		</ul>
+	</div>
+ -->
+	<ul id="navbar">
+		<li><img src='http://i.imgur.com/CPwgYN1.gif' style='height: 45px; padding: 18px'></li>
+		<% if session[:current_user_id] %>
+			<%= render partial: 'navbar/navbar', locals: { navbar: [:profile, :home, :graphs, :newGraph] } %>
+		<% else %>
+			<%= render partial: 'navbar/navbar', locals: { navbar: [:log_in, :sign_up] } %>
+		<% end %>
+	</ul>
 
-<div id="color_palette"><div class="swatch" id="801d73"></div><div class="swatch" id="2dad6b"></div><div class="swatch" id="ff9159"></div></div>
-
-<canvas id="graph" width="800" height="800" style="border: 3px solid #e19562; background: white"></canvas>
-
+	<%= yield %>
 </body>
 </html>

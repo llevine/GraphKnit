@@ -1,0 +1,15 @@
+#navbar {
+	margin: 0;
+	height: 75px;
+	background-color: #313132;
+}
+
+ul {
+	padding: 0;
+}
+
+ul li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}

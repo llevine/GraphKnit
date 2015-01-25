@@ -1,0 +1,44 @@
+<% if navbar.include? (:home) %>
+	<li class="nav_link">
+		<%= link_to graphs_path do %>
+			<img src="http://i.imgur.com/jvgD4nz.png" id="logo">
+		<% end %>
+	</li>
+<% end %>
+
+<% if navbar.include? (:profile) %>
+	<li class="nav_link">
+		<%= link_to "Profile", user_path(current_user) %></li><li class="divider">|</li>
+	</li>
+<% end %>
+
+<% if navbar.include? (:graphs) %>
+	<li class="nav_link">
+		<%= link_to "All Graphs", graphs_path %></li><li class="divider">|</li>
+	</li>
+<% end %>
+
+<% if navbar.include? (:newGraph) %>
+	<li class="nav_link">
+		<%= link_to "New Graph", new_graph_path, method: :get %></li><li class="divider">|</li>
+	</li>
+<% end %>
+
+<% if navbar.include? (:welcome) %>
+	<li class="nav_link" id="profile">
+		<span>Welcome <%= current_user.username %></span><br>
+		<%= link_to "Profile", user_path(current_user) %> <span class="divider">|</span><%= link_to "Log Out", sessions_path, method: :delete %>
+	</li>
+<% end %>
+
+<% if navbar.include? (:sign_up) %>
+	<li class="nav_link">
+		<%= link_to "Sign Up", new_user_path %></li><li class="divider">|</li>
+	</li>
+<% end %>
+
+<% if navbar.include? (:log_in) %>
+	<li class="nav_link">
+		<%= link_to "Log In", login_path %>
+	</li>
+<% end %>

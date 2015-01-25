@@ -1,0 +1,20 @@
+<div class='container' id='createGraph'><br /><br />
+	<div id="actions">
+		<a class='button' id="saveGraph">Save</a>|
+		<a class='button' id="downloadLnk" download="MyGraph.jpg">Download Graph</a>|
+		Existing graphs:
+		<% Graph.all.each do |g| %>
+		<!-- whenever you have a hash in an href it means don't do anything -->
+		  <a href="#" onclick="loadGraph(<%= g.id %>)"><%= g.id %></a>
+		<% end %>
+	</div>
+
+	<canvas id="graph" width="800" height="800" style="border: 3px solid #e19562; background: white"></canvas>
+
+	<div id="color-palette">
+		<% @colors.each do |color| %>
+			<div class="swatch" id="<%= color.hexadecimal %>" onClick="setCurrentColor('<%= color.hexadecimal %>')" style="background-color: <%= color.hexadecimal %> " >
+			</div>
+		<% end %>
+	</div>
+</div>

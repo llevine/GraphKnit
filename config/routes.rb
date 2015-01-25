@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
   root 'application#index'
 
-  resources :users
-  ##resources :graphs
-  get 'graphs' => 'graphs#index'
-  post 'graphs' => 'graphs#create'
-  get 'graphs/:id' => 'graphs#show'
+  resources :users, except: [:index, :edit, :update]
+  
+  # sessions routes
+  get 'sessions/new' => 'sessions#new', as: 'login'
+  post 'sessions'    => 'sessions#create'
+  delete 'sessions'  => 'sessions#destroy'
+
+  get 'graphs/new' => 'graphs#new' # html
+  get 'graphs' => 'graphs#index' # api
+  post 'graphs' => 'graphs#create' # api
+  get 'graphs/:id' => 'graphs#read'
   delete 'graphs/:id' => 'graphs#destroy'
-  put 'graphs' => 'graphs#update'
+  put 'graphs/:id' => 'graphs#update'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

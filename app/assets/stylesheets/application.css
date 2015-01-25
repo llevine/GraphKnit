@@ -15,10 +15,23 @@
  */
 
 body {
-	background: grey;
+	background: url('http://i.imgur.com/d8P5LMa.gif');
 }
 
+#color-palette {
+	border-radius: 18px;
+	width: 135px;
+	float: left;
+	padding: 10px;
+	background: white;
+}
+
+/*---------21 swatches---------*/
 .swatch {
-	width: 50px;
-	height: 50px;
+	float: left;
+	width: 35px;
+	height: 45px;
+/*	width: 23px;
+	height: 31px;*/
+	border: 2px solid white;
 }

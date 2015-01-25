@@ -1,0 +1,49 @@
+<!-- this form will be used to add a new user and to edit an existing user -->
+
+</pre>
+<%= form_for (@user), :validate => true do |f| %>
+<pre>
+  <div class="input">
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+  </div>
+
+  <div class="input">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+  
+  <div class="input">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="input">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    <%= text_field :person, :email_confirmation %>
+  </div>
+
+  <div class="input">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+ </div>
+  
+  <div class="input">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <%= f.submit "Submit", :id=>"submit" %>
+ 
+  <span id="cancel">
+    <% if session[:current_user_id] %>
+      <%= link_to "Cancel", user_path(@user) %>  | 
+    <% else %>
+     <%= link_to "Cancel", login_path %>
+    <% end %>
+    <% if delete %>
+      <%= link_to "Delete User", user_path(@user), method: :delete %>
+    <% end %>
+  </span>
+<% end %>

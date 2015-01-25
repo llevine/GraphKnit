@@ -1,16 +1,16 @@
-function defaultGraph() {
-	var a = [];
-	a.length = 40;
-	for (var i = 0; i < 40; i++) {
-		var b = [];
-		b.length = 40;
-		for (var j = 0; j < 40; j++) {
-			b[j] = "#fff";
-		}
-		a[i] = b;
-	}
-	return a;
-}
+// function defaultGraph() {
+// 	var a = [];
+// 	a.length = 40;
+// 	for (var i = 0; i < 40; i++) {
+// 		var b = [];
+// 		b.length = 40;
+// 		for (var j = 0; j < 40; j++) {
+// 			b[j] = "#fff";
+// 		}
+// 		a[i] = b;
+// 	}
+// 	return a;
+// }
 
 App.Models.Graph = Backbone.Model.extend({
 	urlRoot: '/graphs',
@@ -30,7 +30,7 @@ App.Models.Graph = Backbone.Model.extend({
 		// columns: 100,
 		// delete number of colors
 		// number_of_colors: 1,
-		layout: defaultGraph(),
+		layout: '|',
 		notes: 'Graph notes',
 		privacy: false
 	}

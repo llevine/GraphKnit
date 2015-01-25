@@ -1,10 +1,7 @@
 class UsersController < ApplicationController
-	def index
-		render json: User.all
-	end
 
 	def show
-		render json: User.find(params[:id])
+		@user = User.find(params[:id])
 	end
 
 	def new
@@ -12,22 +9,25 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		render json: User.create(user_params)
-	end
-
-	def edit
-		# check to see if this section is correct
-		if current_user
-			render json: User.find(params[:id])
+		@user = User.new(user_params)
+		@user_id = session[:current_user_id]
+		if @user.save
+			session[:current_user_id] = @user.id
+			redirect_to @user
+		else
+			render :new
 		end
 	end
 
-	def update
-		render json: User.update(params[:id], user_params)
-	end
-
 	def destroy
-		render json: User.destroy(params[:id])
+		@user = User.find(params[:id])
+		if @user != current_user
+			redirect_to users_path
+		else
+			@user.destroy
+			session[:current_user_id] = nil
+			redirect_to graphs_path
+		end
 	end
 
 	private
