@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'application#index'
+  root 'graphs#new'
 
   resources :users, except: [:index, :edit, :update]
   

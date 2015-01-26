@@ -1,15 +1,33 @@
 #navbar {
-	margin: 0;
 	height: 75px;
 	background-color: #313132;
 }
 
 ul {
-	padding: 0;
+	margin-top: 0;
+	list-style: none;
 }
 
 ul li {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
+	display: inline-block;
+	color: green;
+}
+
+a {
+	text-decoration: none;
+}
+
+.divider {
+	width: 5px; 
+	height: 5px;
+}
+
+#link-block {
+	
+}
+
+/*-------------------Event Handlers------------------*/
+
+a:visited {
+	color: #93cb5a;
 }

@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
 	def destroy
 		session[:current_user_id] = nil
 		flash[:logout] = "You have successfully logged out"
-		redirect_to new_graph_path
+		redirect_to graphs_new_path
 	end
 	
 end

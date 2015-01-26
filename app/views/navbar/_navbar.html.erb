@@ -1,39 +1,41 @@
-<% if navbar.include? (:home) %>
-	<li class="nav_link">
-		<%= link_to graphs_new_path do %>
-			<img src='http://i.imgur.com/CPwgYN1.gif' style='height: 45px; padding: 18px'>
-		<% end %>
-	</li>
-<% end %>
-
 <% if navbar.include? (:profile) %>
 	<li class="nav_link">
-		<%= link_to "Profile", user_path(current_user) %></li><li class="divider">|</li>
+		<li><div class="divider" style="background: #fec538;"></div></li>
+		<%= link_to "My Graphs", user_path(current_user) %></li>
+		<li><div class="divider" style="background: #8600cd;"></div></li>
 	</li>
 <% end %>
 
 <% if navbar.include? (:graphs) %>
 	<li class="nav_link">
-		<%= link_to "All Graphs", graphs_path %></li><li class="divider">|</li>
+		<%= link_to "All Graphs", graphs_path %></li>
+		<li><div class="divider" style="background: #2b53eb;"></div></li>
 	</li>
 <% end %>
 
 <% if navbar.include? (:newGraph) %>
 	<li class="nav_link">
-		<%= link_to "New Graph", graphs_new_path, method: :get %></li><li class="divider">|</li>
+		<%= link_to "New Graph", graphs_new_path, method: :get %>
+	</li>
+	<li>
+		<div class="divider" style="background: #f82e5b;"></div>
 	</li>
 <% end %>
 
 <% if navbar.include? (:welcome) %>
+<!-- <div style="float: right; margin: 18px; margin-right: 0; padding: 8px 18px 8px 8px; background: white"> -->
+<div style="float: right; margin: 18px; margin-right: 0; padding: 8px 18px 8px 8px;">
 	<li class="nav_link" id="profile">
-		<span>Welcome <%= current_user.username %></span><br>
-		<%= link_to "Profile", user_path(current_user) %> <span class="divider">|</span><%= link_to "Log Out", sessions_path, method: :delete %>
+		<span>Welcome <%= current_user.username %></span></li><div style="background: #f82e5b;"></div>
+		<li><%= link_to "Log Out", sessions_path, method: :delete %></li>
 	</li>
+</div>
 <% end %>
 
 <% if navbar.include? (:sign_up) %>
 	<li class="nav_link">
-		<%= link_to "Sign Up", new_user_path %></li><li class="divider">|</li>
+		<%= link_to "Sign Up", new_user_path %></li>
+		<li><div class="divider" style="background: #fec538;"></div></li>
 	</li>
 <% end %>
 

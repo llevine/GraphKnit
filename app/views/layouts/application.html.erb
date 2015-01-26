@@ -7,22 +7,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<!-- 	<div id='cssmenu'>
-		<ul>
-		   <li class='active'><a href='#'><span>GraphKnit</span></a></li>
-		   <li><a href='#'><span>Profile</span></a></li>
-		   <li><a href='#'><span>Graphs</span></a></li>
-		   <li class='last'><a href='#'><span>Contact</span></a></li>
-		</ul>
-	</div>
- -->
-	<ul id="navbar">
+
+<div id="navbar">
+	<ul>
+		<li>
+			<%= link_to graphs_new_path do %>
+				<img id='logo' src='http://i.imgur.com/CPwgYN1.gif' style='height: 45px; margin-top: 18px;'>
+			<% end %>
+		</li>
+		
+		<li id='link-block'>
 		<% if session[:current_user_id] %>
-			<%= render partial: 'navbar/navbar', locals: { navbar: [:profile, :home, :graphs, :newGraph] } %>
+			<%= render partial: 'navbar/navbar', locals: { navbar: [:welcome, :profile, :graphs, :newGraph] } %>
 		<% else %>
 			<%= render partial: 'navbar/navbar', locals: { navbar: [:log_in, :sign_up] } %>
 		<% end %>
+		</li>
 	</ul>
+</div>
 
 	<%= yield %>
 </body>
