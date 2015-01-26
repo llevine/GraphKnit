@@ -1,7 +1,7 @@
 <% if navbar.include? (:home) %>
 	<li class="nav_link">
-		<%= link_to graphs_path do %>
-			<img src="http://i.imgur.com/jvgD4nz.png" id="logo">
+		<%= link_to graphs_new_path do %>
+			<img src='http://i.imgur.com/CPwgYN1.gif' style='height: 45px; padding: 18px'>
 		<% end %>
 	</li>
 <% end %>
@@ -20,7 +20,7 @@
 
 <% if navbar.include? (:newGraph) %>
 	<li class="nav_link">
-		<%= link_to "New Graph", new_graph_path, method: :get %></li><li class="divider">|</li>
+		<%= link_to "New Graph", graphs_new_path, method: :get %></li><li class="divider">|</li>
 	</li>
 <% end %>
 

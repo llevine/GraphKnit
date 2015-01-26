@@ -1,13 +1,16 @@
 class SessionsController < ApplicationController
 
 	def new
+		if session[:current_user_id]
+			redirect_to graphs_new_path
+		end
 	end
 
 	def create
 		@user = User.find_by(username: params[:username])
 		if @user && @user.authenticate(params[:password])
 			session[:current_user_id] = @user.id
-			redirect_to new_graph_path
+			redirect_to graphs_new_path
 		else
 			flash[:login_error] = "That username password combo does not match our records. Please try again, sign-up, or continue as guest."
 			render :new

@@ -1,12 +1,14 @@
-<div class='container' id='createGraph'><br /><br />
+<div class='container' id='graphs-new'><br /><br />
 	<div id="actions">
 		<a class='button' id="saveGraph">Save</a>|
 		<a class='button' id="downloadLnk" download="MyGraph.jpg">Download Graph</a>|
+	
 		Existing graphs:
 		<% Graph.all.each do |g| %>
 		<!-- whenever you have a hash in an href it means don't do anything -->
 		  <a href="#" onclick="loadGraph(<%= g.id %>)"><%= g.id %></a>
 		<% end %>
+
 	</div>
 
 	<canvas id="graph" width="800" height="800" style="border: 3px solid #e19562; background: white"></canvas>
@@ -17,4 +19,7 @@
 			</div>
 		<% end %>
 	</div>
+
+	<div id="preview"></div>
+
 </div>

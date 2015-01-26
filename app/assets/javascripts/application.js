@@ -34,27 +34,34 @@ var App = {
 
 // global variable that stores the color to be used on the grid. Set the default color to black.
 var currentColor = '#000';
+var backgroundColor = '#fff'
+
+// ------------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------- //
 
 function setCurrentColor(selection){
-	currentColor = selection;
+	return currentColor = selection;
 }
 
 // runs when the page has loaded.
-$(function(){
-	
+$(function(){	
 	console.log('the page has loaded');
-	if ($('#createGraph').length === 1){
+	
+	// checks to see if the container graphs-new is on the page. if so then it will run the js on page load
+	if ($('#graphs-new').length === 1){
 		graphModel = new App.Models.Graph;
-		// renderSwatches();
-		drawGraph();
-		addClickListener();
+		blankGraph();
+		listeningForCellClick();
+		// renderPreview();
 		// to download the graph as a jpeg.
 		// You can even change the file-name dynamically by setting the attribute downloadLnk.download = 'myFilename.jpg'.
-		$("#downloadLnk").click(function(){
+		$('#downloadLnk').click(function(){
 			console.log('graph has been downloaded');
-			var c = document.getElementById("graph");
-			var dt = c.toDataURL('image/jpeg');
+			// var c = document.getElementById("graph");
+			// var dt = c.toDataURL('image/jpeg');
+			var dt = getGraphInfo('data');
 	    this.href = dt;
+	    updatePreview(dt);
 		});
 
 		$("#saveGraph").click(function(){
@@ -72,31 +79,36 @@ $(function(){
 	}
 })
 
-// function gets the graph context
-function getGraphContext(){
-	var c = document.getElementById("graph");
-	return c.getContext("2d");
+function updatePreview(dt){
+	$('#preview').empty();
+	$('#preview').append('<img id="thumbnail" src="'+dt+'">');
 }
 
-// // this doesn't work right now. have to rework it.
-// function renderSwatches(){
-// 	// gets each swatch class div element finds it's id and sets that id to be the background color of the div
-// 	$('.swatch').each(function(){ 
-// 		var x = $(this).attr('id'); 
-// 		$(this).css({background: '#' + x});
-// 		$(this).click(function(){
-// 			currentColor = '#' + x;
-// 				//alert(currentColor);
-// 		});
-// 	});
+
+// function renderPreview(){
+// 	var dt = getGraphInfo('data');
 // }
 
+// function gets the graph context
+function getGraphInfo(type){
+	var c = document.getElementById("graph");
+	if (type == 'element'){
+		return c;
+	}
+	else if (type == 'context'){
+		return c.getContext("2d");
+	}
+	else if (type == 'data'){
+		return c.toDataURL('image/jpeg');
+	}
+}
+
 // adds the graph to the dom
-function drawGraph(){
-	var ctx = getGraphContext();
+function blankGraph(){
+	var ctx = getGraphInfo('context');
 
 	// adds a white rectangle behind the graph, so when download the graph as jpeg background is white, NOT black
-	ctx.fillStyle = 'white';
+	ctx.fillStyle = backgroundColor;
 	ctx.fillRect(0,0,800,800);
 	// draws the horizontal lines
 	for (var i=0; i<=40; i++){
@@ -113,21 +125,21 @@ function drawGraph(){
 	}
 }
 
-function addClickListener() {
+function listeningForCellClick() {
 	// gets the graph and adds a click listener to each cell
-	var c = document.getElementById("graph"); 
+	var c = getGraphInfo('element'); 
 	c.addEventListener('click', function(evt) {
 		// gets the position of the mouse
       var mousePos = getMousePos(c, evt);
       var i = Math.floor(mousePos.x/20);
       var j = Math.floor(mousePos.y/20);
-      fillSquare(i,j);
+      renderCell(i,j);
       updateLayout(i,j);
   }, false);
 }
 
 function loadGraph(g_id) {
-	drawGraph();
+	blankGraph();
 	graphModel = new App.Models.Graph({id: g_id});
 	graphModel.fetch({
 		success: function() {
@@ -135,7 +147,7 @@ function loadGraph(g_id) {
 				var t = triple.split(",");
 				if (t.length == 3) {
 					currentColor = t[2];
-					fillSquare(t[0], t[1]);
+					renderCell(t[0], t[1]);
 				}
 			});
 		},
@@ -144,8 +156,8 @@ function loadGraph(g_id) {
 }
 
 // fills the clicked square with the selected color
-function fillSquare(i,j) {
-	var ctx = getGraphContext();
+function renderCell(i,j) {
+	var ctx = getGraphInfo('context');
 	ctx.fillStyle = currentColor;
 	// x start,y start, width, length
 	ctx.fillRect((i*20+1),(j*20+1),18,18);

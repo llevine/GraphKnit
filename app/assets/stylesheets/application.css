@@ -26,6 +26,10 @@ body {
 	background: white;
 }
 
+#thumbnail {
+	width: 10%;
+}
+
 /*---------21 swatches---------*/
 .swatch {
 	float: left;

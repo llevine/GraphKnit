@@ -17,7 +17,6 @@
 	</div>
  -->
 	<ul id="navbar">
-		<li><img src='http://i.imgur.com/CPwgYN1.gif' style='height: 45px; padding: 18px'></li>
 		<% if session[:current_user_id] %>
 			<%= render partial: 'navbar/navbar', locals: { navbar: [:profile, :home, :graphs, :newGraph] } %>
 		<% else %>
