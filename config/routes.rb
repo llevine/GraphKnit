@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   delete 'graphs/:id' => 'graphs#destroy'
   put 'graphs/:id' => 'graphs#update'
 
+  get 'graphs/edit/:id' => 'graphs#edit'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

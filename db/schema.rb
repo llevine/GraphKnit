@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150124215220) do
+ActiveRecord::Schema.define(version: 20150126224320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "cells", force: true do |t|
+  create_table "colors", force: true do |t|
     t.string   "hexadecimal"
     t.text     "yarn"
     t.datetime "created_at"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20150124215220) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "preview"
   end
 
   create_table "users", force: true do |t|

@@ -1,0 +1,12 @@
+<h1><%= @user.username %></h1>
+<div class='container' id='my-graphs'>
+
+MY GRAPH PREVIEWS WOULD GO HERE
+<script>alert(<%= @user.graphs.count %>);</script>
+<% @user.graphs.each do |image| %>
+	<a href="/graphs/edit/<%= image.id %>">
+		<img class="thumbnail" src="<%= image.preview %>" style="max-width: 155px;"><br>
+	</a>
+<% end %>
+
+</div>

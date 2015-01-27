@@ -47,10 +47,20 @@ function setCurrentColor(selection){
 $(function(){	
 	console.log('the page has loaded');
 	
+
+		
+
+
 	// checks to see if the container graphs-new is on the page. if so then it will run the js on page load
 	if ($('#graphs-new').length === 1){
-		graphModel = new App.Models.Graph;
-		blankGraph();
+		if (typeof(graphModel) == "undefined" || graphModel == null) {
+			graphModel = new App.Models.Graph;
+			console.log("current user is: " + $('#graphs-new').attr('data-userid'));
+			console.log('the model has a user id of: ' + graphModel.get('user_id'));
+			var userID = $('#graphs-new').attr('data-userid');
+			graphModel.set('user_id', userID);
+			blankGraph();
+		}
 		listeningForCellClick();
 		// renderPreview();
 		// to download the graph as a jpeg.
@@ -64,8 +74,30 @@ $(function(){
 	    updatePreview(dt);
 		});
 
+// adds click event listener to swatches to style the active swatch 
+		$('.swatch').one('click', function(){
+			$('.swatch').removeClass('activeSwatch');
+			$(this).addClass('activeSwatch');
+		})
+
+		$('#deleteGraph').click(function(){
+			console.log('delete button was clicked');
+			graphModel.destroy({
+				success: function() {
+					graphModel = new App.Models.Graph;
+					blankGraph();
+				}
+			})
+		})
+
+// adds click event listener to savegraph button. saves button on click
 		$("#saveGraph").click(function(){
-			alert("You clicked save!");
+			console.log("You clicked save!");
+			alert(userID);
+			var dt = getGraphInfo('data');
+			graphModel.set('preview', dt);
+
+			// checks to see if the graph has been saved before. if it hasn't it will create a new entry in the db. if it is already in the db it will update the graph
 			var isNew = (graphModel.id == null);
 			graphModel.save(null, {
 				success: function() {
@@ -74,7 +106,6 @@ $(function(){
 					}
 				}
 			});
-
 		});
 	}
 })
@@ -83,7 +114,6 @@ function updatePreview(dt){
 	$('#preview').empty();
 	$('#preview').append('<img id="thumbnail" src="'+dt+'">');
 }
-
 
 // function renderPreview(){
 // 	var dt = getGraphInfo('data');
@@ -128,6 +158,7 @@ function blankGraph(){
 function listeningForCellClick() {
 	// gets the graph and adds a click listener to each cell
 	var c = getGraphInfo('element'); 
+	// gives you the starting cell
 	c.addEventListener('click', function(evt) {
 		// gets the position of the mouse
       var mousePos = getMousePos(c, evt);
@@ -139,6 +170,7 @@ function listeningForCellClick() {
 }
 
 function loadGraph(g_id) {
+	console.log("Loading: " + g_id);
 	blankGraph();
 	graphModel = new App.Models.Graph({id: g_id});
 	graphModel.fetch({
@@ -151,7 +183,7 @@ function loadGraph(g_id) {
 				}
 			});
 		},
-		error: function() { alert("Object doesn't exist!"); }
+		error: function() { console.log("Object doesn't exist!"); }
 	});
 }
 

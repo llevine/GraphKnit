@@ -18,24 +18,55 @@ body {
 	background: url('http://i.imgur.com/d8P5LMa.gif');
 }
 
-#color-palette {
-	border-radius: 18px;
-	width: 135px;
-	float: left;
-	padding: 10px;
-	background: white;
+#graphs-new {
+	margin: 50px auto;
+}
+
+.button {
+	border: 1px solid black;
+	padding: 7px;
+	font-weight: bold;
+}
+
+#actions {
+	margin: 20px 202px;
+	margin-bottom: 10px;
+
 }
 
 #thumbnail {
+	float: right;
 	width: 10%;
+}
+
+#graph {
+	display: block;
+	margin: 0 202px;
+	border: 1px solid black;
+	/*how to have an image as a cursor. thinking it'd be best to save this line to db for each swatch color then change cursor that way when swatch is selected*/
+	/*cursor:url(http://i.imgur.com/cH9fFOA.gif), auto;*/
+}
+
+#color-palette {
+	width: 990px;
+	margin: 0 149px;
 }
 
 /*---------21 swatches---------*/
 .swatch {
-	float: left;
-	width: 35px;
+	display: inline-block;
+	width: 25px;
 	height: 45px;
-/*	width: 23px;
-	height: 31px;*/
-	border: 2px solid white;
+	padding: 0;
+	margin: -3px;
+	/*border: 2px solid white;*/
 }
+
+
+
+/*-------------------Event Handlers------------------*/
+
+.swatch:hover, .activeSwatch {
+	border: 2px solid black;
+}
+

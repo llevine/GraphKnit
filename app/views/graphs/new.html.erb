@@ -1,25 +1,36 @@
-<div class='container' id='graphs-new'><br /><br />
-	<div id="actions">
-		<a class='button' id="saveGraph">Save</a>|
-		<a class='button' id="downloadLnk" download="MyGraph.jpg">Download Graph</a>|
-	
-		Existing graphs:
-		<% Graph.all.each do |g| %>
-		<!-- whenever you have a hash in an href it means don't do anything -->
-		  <a href="#" onclick="loadGraph(<%= g.id %>)"><%= g.id %></a>
-		<% end %>
+<div class='container' id='graphs-new' <% if session[:current_user_id] %>data-userid='<%= current_user.id %>'<% end %>>
+		<div id="color-palette">
+			<% @colors.each do |color| %>
+				<div class="swatch" id="<%= color.hexadecimal %>" onClick="setCurrentColor('<%= color.hexadecimal %>')" style="background-color: <%= color.hexadecimal %> " >
+				</div>
+			<% end %>
+		</div>
+	<% if session[:current_user_id] %>
+		<div id="actions">
+			<a class='button' id="saveGraph">Save</a>
+			<a class='button' id="downloadLnk" download="MyGraph.jpg">Download Graph</a>
+			<a class='button' id="deleteGraph">Delete</a>
 
-	</div>
+				Existing graphs:
+			<% Graph.all.each do |g| %>
+			<!-- whenever you have a hash in an href it means don't do anything -->
+			  <a href="#" onclick="loadGraph(<%= g.id %>)"><%= g.id %></a>
+			<% end %>
+		</div>
+	<% end %>
 
-	<canvas id="graph" width="800" height="800" style="border: 3px solid #e19562; background: white"></canvas>
-
-	<div id="color-palette">
-		<% @colors.each do |color| %>
-			<div class="swatch" id="<%= color.hexadecimal %>" onClick="setCurrentColor('<%= color.hexadecimal %>')" style="background-color: <%= color.hexadecimal %> " >
-			</div>
-		<% end %>
-	</div>
+	<canvas id="graph" width="800" height="800"></canvas>
 
 	<div id="preview"></div>
 
 </div>
+
+<% if !params[:id].nil? %>
+	<script>
+	  console.log("Hello, loading " + <%= params[:id] %>);
+	  loadGraph(<%= params[:id] %>);
+	</script>
+<% else %>
+  <script>console.log("PARAMS ID IS NUL");</script>
+<% end %>
+

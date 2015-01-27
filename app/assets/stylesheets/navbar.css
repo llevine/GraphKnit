@@ -28,6 +28,10 @@ a {
 
 /*-------------------Event Handlers------------------*/
 
-a:visited {
+a:visited, a:active {
 	color: #93cb5a;
+}
+
+#navbar>ul a:hover {
+	background: #93cb5a;
 }

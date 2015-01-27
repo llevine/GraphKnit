@@ -19,6 +19,7 @@ App.Models.Graph = Backbone.Model.extend({
 		console.log('created new graph model');
 	},
 	defaults: {
+		user_id: null,
 		name: 'My First Graph',
 		category: 'My Category',
 		image_url: '',
@@ -32,6 +33,7 @@ App.Models.Graph = Backbone.Model.extend({
 		// number_of_colors: 1,
 		layout: '|',
 		notes: 'Graph notes',
-		privacy: false
+		privacy: false,
+		preview: ''
 	}
 });
