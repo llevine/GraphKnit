@@ -1,6 +1,6 @@
 class GraphsController < ApplicationController
   def index
-    render json: Graph.all
+    @graphs = Graph.all
   end
 
   def read

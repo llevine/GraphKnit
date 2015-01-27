@@ -1,2 +1,9 @@
-<h1>Graph#index</h1>
-<p>Find me in app/views/graph/index.html.erb</p>
+<script>
+	$('#all').css({'border-radius':'5px', 'border':'2.5px solid #f36d74', 'color':'white'});
+</script>
+
+<div class='container' id='graphs-index'>
+	<% @graphs.each do |graph| %>
+		<img class="thumbnail" src="<%= graph.preview %>" style="max-width: 155px;"><br>
+	<% end %>
+</div>

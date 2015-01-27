@@ -1,46 +1,60 @@
 <% if navbar.include? (:profile) %>
-	<li class="nav_link">
-		<li><div class="divider" style="background: #fec538;"></div></li>
-		<%= link_to "My Graphs", user_path(current_user) %></li>
-		<li><div class="divider" style="background: #8600cd;"></div></li>
+	<li>
+		<div class="divider" style="background: #ab47c4;"></div>
+	</li>
+
+	<li class="nav_link" id="my">
+		<%= link_to "My Graphs", user_path(current_user) %>
+	</li>
+	
+	<li>
+		<div class="divider" style="background: #f36d74;"></div>
 	</li>
 <% end %>
 
 <% if navbar.include? (:graphs) %>
-	<li class="nav_link">
-		<%= link_to "All Graphs", graphs_path %></li>
-		<li><div class="divider" style="background: #2b53eb;"></div></li>
+	<li class="nav_link" id="all">
+		<%= link_to "All Graphs", graphs_path %>
+	</li>
+	
+	<li>
+		<div class="divider" style="background: #fd724c;"></div>
 	</li>
 <% end %>
 
 <% if navbar.include? (:newGraph) %>
-	<li class="nav_link">
+	<li class="nav_link" id="new">
 		<%= link_to "New Graph", graphs_new_path, method: :get %>
 	</li>
+
 	<li>
-		<div class="divider" style="background: #f82e5b;"></div>
+		<div class="divider" style="background: #ffe578;"></div>
 	</li>
 <% end %>
 
-<% if navbar.include? (:welcome) %>
-<!-- <div style="float: right; margin: 18px; margin-right: 0; padding: 8px 18px 8px 8px; background: white"> -->
-<div style="float: right; margin: 18px; margin-right: 0; padding: 8px 18px 8px 8px;">
-	<li class="nav_link" id="profile">
-		<span>Welcome <%= current_user.username %></span></li><div style="background: #f82e5b;"></div>
-		<li><%= link_to "Log Out", sessions_path, method: :delete %></li>
-	</li>
+
+<div style="float: right; margin: -57px; margin-right: 0; color: white;">
+	<% if navbar.include? (:welcome) %>
+		<li class="nav_link" id="profile">
+			<span>Welcome <%= current_user.username %></span><li style='margin: 0 3px;'>|</li>
+		</li>
+		<li id='logout' style='padding-right: 10px;'><%= link_to "Log Out", sessions_path, method: :delete %>
+		</li>
+	<% end %>
+
+	<% if navbar.include? (:sign_up) %>
+		<li class="nav_link">
+			<%= link_to "Sign Up", new_user_path %>
+		</li>
+			
+		<li>
+			<div class="divider" style="background: #fec538;"></div>
+		</li>
+	<% end %>
+
+	<% if navbar.include? (:log_in) %>
+		<li class="nav_link">
+			<%= link_to "Log In", login_path %>
+		</li>
+	<% end %>
 </div>
-<% end %>
-
-<% if navbar.include? (:sign_up) %>
-	<li class="nav_link">
-		<%= link_to "Sign Up", new_user_path %></li>
-		<li><div class="divider" style="background: #fec538;"></div></li>
-	</li>
-<% end %>
-
-<% if navbar.include? (:log_in) %>
-	<li class="nav_link">
-		<%= link_to "Log In", login_path %>
-	</li>
-<% end %>

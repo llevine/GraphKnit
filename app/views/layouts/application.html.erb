@@ -8,23 +8,21 @@
 </head>
 <body>
 
-<div id="navbar">
-	<ul>
-		<li>
-			<%= link_to graphs_new_path, method: :get do %>
-				<img id='logo' src='http://i.imgur.com/CPwgYN1.gif' style='height: 45px; margin-top: 18px;'>
-			<% end %>
-		</li>
-		
-		<li id='link-block'>
+<div id='logo-container'>
+	<%= link_to graphs_new_path, method: :get do %>
+		<img src='http://i.imgur.com/KuFBt6b.png' style='height: 45px; margin-top: 18px;'>
+	<% end %>
+</div>
+
+<ul id="navbar">
+	<li id='link-block'>
 		<% if session[:current_user_id] %>
 			<%= render partial: 'navbar/navbar', locals: { navbar: [:welcome, :profile, :graphs, :newGraph] } %>
 		<% else %>
 			<%= render partial: 'navbar/navbar', locals: { navbar: [:log_in, :sign_up] } %>
 		<% end %>
-		</li>
-	</ul>
-</div>
+	</li>
+</ul>
 
 	<%= yield %>
 </body>

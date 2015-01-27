@@ -45,20 +45,11 @@ function setCurrentColor(selection){
 
 // runs when the page has loaded.
 $(function(){	
-	console.log('the page has loaded');
-	
-
-		
-
-
+	console.log('the page has loaded');	
 	// checks to see if the container graphs-new is on the page. if so then it will run the js on page load
 	if ($('#graphs-new').length === 1){
 		if (typeof(graphModel) == "undefined" || graphModel == null) {
 			graphModel = new App.Models.Graph;
-			console.log("current user is: " + $('#graphs-new').attr('data-userid'));
-			console.log('the model has a user id of: ' + graphModel.get('user_id'));
-			var userID = $('#graphs-new').attr('data-userid');
-			graphModel.set('user_id', userID);
 			blankGraph();
 		}
 		listeningForCellClick();
@@ -92,23 +83,39 @@ $(function(){
 
 // adds click event listener to savegraph button. saves button on click
 		$("#saveGraph").click(function(){
+			saveGraph();
+		});
+	}
+})
+
+function saveGraph(){
 			console.log("You clicked save!");
-			alert(userID);
 			var dt = getGraphInfo('data');
 			graphModel.set('preview', dt);
-
+			
 			// checks to see if the graph has been saved before. if it hasn't it will create a new entry in the db. if it is already in the db it will update the graph
 			var isNew = (graphModel.id == null);
 			graphModel.save(null, {
 				success: function() {
 					if (isNew) {
-						$('#actions').append('<a href="#" onclick="loadGraph(' + graphModel.id + ')">' + graphModel.id + '</a>');
+						saveUserID();
+						//$('#actions').append('<a href="#" onclick="loadGraph(' + graphModel.id + ')">' + graphModel.id + '</a>');
 					}
 				}
 			});
+}
+
+function saveUserID(){
+		var userID = $('#graphs-new').attr('data-userid');
+		console.log("current user is: " + $('#graphs-new').attr('data-userid'));
+		graphModel.set("user_id", userID);
+		console.log('the model has a user id of: ' + graphModel.get('user_id'));
+		graphModel.save(null, {
+			success: function() {
+				console.log('saved ' + graphModel.get('user_id'));
+			}
 		});
-	}
-})
+}
 
 function updatePreview(dt){
 	$('#preview').empty();
