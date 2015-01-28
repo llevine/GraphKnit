@@ -13,7 +13,9 @@
 				<a class='button' id="deleteGraph">Delete</a>
 			</div>
 		<% else %>
-			<%= link_to "Save Graph", { controller: "sessions", action: "new" }, :onclick => 'saveGraph()' %>
+		<div id="actions">
+			<%= link_to "Save Graph", { controller: "sessions", action: "new" }, :onclick => 'saveGraph()', class: "button" %>
+		</div>
 		<% end %>
 		<div style='display: inline-block;'>
 			<h3 id='swatch-head'>Swatches</h3>

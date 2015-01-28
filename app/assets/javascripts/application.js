@@ -60,11 +60,9 @@ $(function(){
 		// You can even change the file-name dynamically by setting the attribute downloadLnk.download = 'myFilename.jpg'.
 		$('#downloadLnk').click(function(){
 			console.log('graph has been downloaded');
-			// var c = document.getElementById("graph");
-			// var dt = c.toDataURL('image/jpeg');
 			var dt = getGraphInfo('data');
 	    this.href = dt;
-	    updatePreview(dt);
+	    // updatePreview(dt);
 		});
 
 // adds click event listener to swatches to style the active swatch 
@@ -77,23 +75,31 @@ $(function(){
 			console.log('delete button was clicked');
 			graphModel.destroy({
 				success: function() {
+					console.log('graph deleted');
 					graphModel = new App.Models.Graph;
 					blankGraph();
 				}
 			})
 		})
 
-// adds click event listener to savegraph button. saves button on click
+		// adds click event listener to savegraph button. saves button on click
 		$("#saveGraph").click(function(){
+			alert('graph was saved!');
 			saveGraph();
 		});
 	}
 })
 
+function showGraph(){
+	var graphID = $('#show-graph').attr('data-graphid');
+	// document.getElementById('graph-title').textContent = name;
+	loadGraph(graphID);
+}
+
 function saveGraph(){
 			console.log("You clicked save!");
 			var dt = getGraphInfo('data');
-			updatePreview(dt);
+			// updatePreview(dt);
 			graphModel.set('preview', dt);
 			
 			// checks to see if the graph has been saved before. if it hasn't it will create a new entry in the db. if it is already in the db it will update the graph
@@ -110,9 +116,9 @@ function saveGraph(){
 
 function saveUserID(){
 		var userID = $('#graphs-new').attr('data-userid');
-		console.log("current user is: " + $('#graphs-new').attr('data-userid'));
+		// console.log("current user is: " + $('#graphs-new').attr('data-userid'));
 		graphModel.set("user_id", userID);
-		console.log('the model has a user id of: ' + graphModel.get('user_id'));
+		// console.log('the model has a user id of: ' + graphModel.get('user_id'));
 		graphModel.save(null, {
 			success: function() {
 				console.log('saved ' + graphModel.get('user_id'));
@@ -120,13 +126,9 @@ function saveUserID(){
 		});
 }
 
-function updatePreview(dt){
-	$('#preview').empty();
-	$('#preview').append('<h3>Graph Saved!</h3><img id="thumbnail" src="'+dt+'">');
-}
-
-// function renderPreview(){
-// 	var dt = getGraphInfo('data');
+// function updatePreview(dt){
+// 	$('#preview').empty();
+// 	$('#preview').append('<h3>Graph Saved!</h3><img id="thumbnail" src="'+dt+'">');
 // }
 
 // function gets the graph context

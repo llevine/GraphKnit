@@ -1,8 +1,5 @@
 <!-- this form will be used to add a new user and to edit an existing user -->
-
-</pre>
 <%= form_for (@user), :validate => true do |f| %>
-<pre>
   <div class="input">
     <%= f.label :username %>
     <%= f.text_field :username %>
@@ -18,9 +15,10 @@
     <%= f.text_field :last_name %>
   </div>
 
-  <div class="input">
+  <div class="input" id='email'>
     <%= f.label :email %>
     <%= f.text_field :email %>
+    <br>
     <%= text_field :person, :email_confirmation %>
   </div>
 
@@ -39,8 +37,6 @@
   <span id="cancel">
     <% if session[:current_user_id] %>
       <%= link_to "Cancel", user_path(@user) %>  | 
-    <% else %>
-     <%= link_to "Cancel", login_path %>
     <% end %>
     <% if delete %>
       <%= link_to "Delete User", user_path(@user), method: :delete %>

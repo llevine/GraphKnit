@@ -3,7 +3,10 @@
 </script>
 
 <div class='container' id='graphs-index'>
+	<h1>All Public Graphs</h1><br>
 	<% @graphs.each do |graph| %>
-		<img class="thumbnail" src="<%= graph.preview %>" style="max-width: 155px;"><br>
+		<a href="/graphs/show/<%= graph.id %>">
+			<img class="thumbnail" src="<%= graph.preview %>" style="max-width: 155px;">
+		</a>
 	<% end %>
 </div>

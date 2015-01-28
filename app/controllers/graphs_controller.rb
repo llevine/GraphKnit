@@ -3,6 +3,10 @@ class GraphsController < ApplicationController
     @graphs = Graph.all
   end
 
+  def show
+    @graph = Graph.find(params[:id])
+  end
+
   def read
     render json: Graph.find(params[:id])
   end

@@ -1,0 +1,28 @@
+#my-graphs, #graphs-index {
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+	margin: 0 auto;
+}
+
+#my-graphs img.thumbnail {
+	border: 2px solid rgba(0,0,0,.5);
+}
+
+#my-graphs>h1, #graphs-index>h1 {
+	display: inline-block;
+	margin: 18px 0 0 0;
+	font-weight: 300;
+	color: #242425;
+	font-size: 45px;
+}
+
+#graphs-index>h1 {
+	margin-bottom: 10px;
+}
+
+#my-graphs>h2 {
+	font-size: 18px;
+	margin-top: 0;
+	margin: 4px 0 10px 0 ;
+}

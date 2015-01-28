@@ -1,11 +1,9 @@
-<div class="form splash" id="login">
-
-	<h1>Join the Community!</h1>
-
-	<% if @user.errors.any? %>
-	    <h3 style="color:red">Please fix the appropriate fields:</h3>
-	<% end %>
-
-	<%= render partial: 'form', locals: { new_user: true, delete: false, edit: false } %>
-
+<div class="form" id="signup">
+	<div>
+		<h1>Join the Community!</h1>
+		<% if @user.errors.any? %>
+		    <h3 style="color:#fa4f20">Please fix the appropriate fields:</h3>
+		<% end %>
+		<%= render partial: 'form', locals: { new_user: true, delete: false, edit: false } %>
+	</div>
 </div>

@@ -15,15 +15,19 @@
  */
 
 /*-----------------------------Global Styling ------------------------*/
-
+@import url(http://fonts.googleapis.com/css?family=Great+Vibes);
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900);
 
 body {
-	background: url('http://i.imgur.com/d8P5LMa.gif');
+	width: 100%;
+	background-image: url('http://i.imgur.com/WEGFPca.png');
 	font-family: Lato, sans-serif;
 }
 
-.button, .button:visited {
+.button, .button:visited, #submit {
+	background: none;
+	color: #242425;
+	text-decoration: none;
 	border: 1px solid black;
 	padding: 7px;
 	font-weight: bold;
@@ -31,7 +35,7 @@ body {
 
 /*-----------------------------Specific Styling ------------------------*/
 
-#graphs-new {
+#graphs-new, #show-graph {
 	text-align: center;
 }
 
@@ -125,7 +129,7 @@ body {
 	border: 1px solid #6ab0f8;
 }
 
-.button:active {
+.button:active, #submit:active {
 	cursor: default;
 	background: #242425;
 	color: #609ff8;

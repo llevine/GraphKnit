@@ -53,12 +53,24 @@ li.nav_link {
 	color: white;
 }*/
 
+#my:active {
+	background-color: #ab47c4;
+}
+
 #my:hover {
 	border: 2.5px solid #ab47c4;
 }
 
+#all:active {
+	background-color: #f36d74;
+}
+
 #all:hover {
 	border: 2.5px solid #f36d74;
+}
+
+#new:active {
+	background-color: #fd724c;
 }
 
 #new:hover {

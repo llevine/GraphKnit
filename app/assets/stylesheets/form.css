@@ -1,0 +1,83 @@
+.form {
+    width: 350px;
+    max-width: 406px;
+    margin: 50px auto;
+}
+
+#signup {
+    padding: 0px 25px 25px;
+    background: rgba(255, 255, 255, .5);
+    box-shadow: 
+        0px 0px 0px 5px rgba( 255,255,255,0.4 ), 
+        0px 4px 20px rgba( 0,0,0,0.33 );
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    display: table;
+    position: static;
+}
+
+#signup>h1 {
+    margin-bottom: 20px;
+}
+
+#signup>hr {
+    background: #e8e8e8;
+    margin: 0px auto;
+}
+
+#signup .input {
+    margin-top: 12px;
+}
+
+#signup .input label {
+    color: #242425;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+    display: block;
+}
+
+#signup #submit {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px 0;
+    letter-spacing: 2px;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    border: 2px solid #737b8d;
+    display: table;
+    position: static;
+    clear: both;
+}
+
+#signup h3 {
+    display: inline-block;
+    width: 100%;
+    margin: 5px;
+    text-align: center;
+}
+
+#signup h3>a {
+    color: black;
+}
+
+#email>input[type='text'] {
+	width: 300px;
+	margin-bottom: 2px;
+}
+
+input[type="text"], input[type="password"] {
+	width: 250px;
+}
+
+.input>h4 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+#signup #delete>a {
+    color: black;
+}
