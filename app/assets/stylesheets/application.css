@@ -71,6 +71,17 @@ body {
 	padding: 17px 0;
 }
 
+#graph-title {
+	background: #313132;
+	color: white; 
+	font-size: 24px; 
+	font-weight: 300; 
+	text-align: center; 
+	margin: 0 auto; 
+	padding: 10px 0; 
+	clear: both;
+}
+
 /*---------21 swatches---------*/
 .swatch {
 	float: left;
