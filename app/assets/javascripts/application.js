@@ -50,6 +50,8 @@ $(function(){
 	if ($('#graphs-new').length === 1){
 		if (typeof(graphModel) == "undefined" || graphModel == null) {
 			graphModel = new App.Models.Graph;
+			var name = graphModel.get('name');
+			document.getElementById('graph-title').textContent = name;
 			blankGraph();
 		}
 		listeningForCellClick();
@@ -66,10 +68,10 @@ $(function(){
 		});
 
 // adds click event listener to swatches to style the active swatch 
-		$('.swatch').one('click', function(){
+		$('.swatch').click(function(){
 			$('.swatch').removeClass('activeSwatch');
 			$(this).addClass('activeSwatch');
-		})
+		});
 
 		$('#deleteGraph').click(function(){
 			console.log('delete button was clicked');
@@ -91,6 +93,7 @@ $(function(){
 function saveGraph(){
 			console.log("You clicked save!");
 			var dt = getGraphInfo('data');
+			updatePreview(dt);
 			graphModel.set('preview', dt);
 			
 			// checks to see if the graph has been saved before. if it hasn't it will create a new entry in the db. if it is already in the db it will update the graph
@@ -119,7 +122,7 @@ function saveUserID(){
 
 function updatePreview(dt){
 	$('#preview').empty();
-	$('#preview').append('<img id="thumbnail" src="'+dt+'">');
+	$('#preview').append('<h3>Graph Saved!</h3><img id="thumbnail" src="'+dt+'">');
 }
 
 // function renderPreview(){

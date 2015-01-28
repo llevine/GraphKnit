@@ -14,61 +14,109 @@
  *= require_self
  */
 
+/*-----------------------------Global Styling ------------------------*/
+
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900);
 
 body {
 	background: url('http://i.imgur.com/d8P5LMa.gif');
+	font-family: Lato, sans-serif;
 }
 
-#graphs-new {
-	margin: 50px auto;
-}
-
-.button {
+.button, .button:visited {
 	border: 1px solid black;
 	padding: 7px;
 	font-weight: bold;
 }
 
-#actions {
-	margin: 20px 202px;
-	margin-bottom: 10px;
+/*-----------------------------Specific Styling ------------------------*/
 
+#graphs-new {
+	text-align: center;
 }
 
-#thumbnail {
+
+#graph-buttons-container {
+	display: inline-block;
+	margin: 75px auto;
+	text-align: right;
+}
+
+#graph-container {
 	float: right;
-	width: 10%;
-}
-
-#graph {
-	display: block;
-	margin: 0 202px;
-	border: 1px solid black;
-	/*how to have an image as a cursor. thinking it'd be best to save this line to db for each swatch color then change cursor that way when swatch is selected*/
-	/*cursor:url(http://i.imgur.com/cH9fFOA.gif), auto;*/
 }
 
 #color-palette {
-	width: 990px;
-	margin: 0 149px;
+	background: white;
+	float: left;
+	width: 75px;
+	padding: 5px;
+	padding-top: 0;
+	/*border: 1px solid black;*/
+	/*margin: 0 5px;*/
+}
+
+#swatch-head {
+	background: #313132; 
+	color: white; 
+	letter-spacing: 1.5px; 
+	font-size: 14px; 
+	font-weight: 300; 
+	text-align: center; 
+	margin: 0 0; 
+	box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+	border-right: 1px dashed #b6b6b6;
+	padding: 17px 0;
 }
 
 /*---------21 swatches---------*/
 .swatch {
-	display: inline-block;
+	float: left;
 	width: 25px;
 	height: 45px;
 	padding: 0;
-	margin: -3px;
-	/*border: 2px solid white;*/
+}
+
+#preview {
+	float: right;
+}
+
+#thumbnail {
+	clear: both;
+	max-width: 10%;
 }
 
 
+#actions {
+	margin-bottom: 12px;
+}
+
+
+#graph {
+	display: block;
+	border: 1px solid black;
+}
 
 /*-------------------Event Handlers------------------*/
 
 .swatch:hover, .activeSwatch {
-	border: 2px solid black;
+	box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+	border: 2px solid white;
+}
+
+.button:hover {
+	cursor: default;
+	background-color: rgba(255, 255, 255, .4);
+	border: 1px solid #6ab0f8;
+}
+
+.button:active {
+	cursor: default;
+	background: #242425;
+	color: #609ff8;
 }
 
