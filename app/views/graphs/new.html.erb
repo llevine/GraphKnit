@@ -12,10 +12,6 @@
 				<a class='button' id="downloadLnk" download="MyGraph.jpg">Download Graph</a>
 				<a class='button' id="deleteGraph">Delete</a>
 			</div>
-		<% else %>
-		<div id="actions">
-			<%= link_to "Save Graph", { controller: "sessions", action: "new" }, :onclick => 'saveGraph()', class: "button" %>
-		</div>
 		<% end %>
 		<div style='display: inline-block;'>
 			<h3 id='swatch-head'>Swatches</h3>
