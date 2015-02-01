@@ -1,6 +1,5 @@
 <script>
 	$('#new').css({'border-radius':'5px', 'border':'2.5px solid #fd724c', 'padding':'5px', 'color':'white'}); 
-		// $('#new').css({'background-color':'#fd724c', 'border':'1px solid #c3c3c3', 'color':'white'}); 
 		</script>
 
 <div class='container' id='graphs-new' <% if session[:current_user_id] %>data-userid='<%= current_user.id %>'<% end %>>
@@ -25,9 +24,11 @@
 
 		<div id='graph-container'>
 			<h3 id='graph-title'></h3>
-			<canvas id="graph" width="800" height="800"></canvas>
+<!-- 			<canvas id="graph" width="800" height="800"></canvas>
+ -->			<canvas id="graph" width="1400" height="740"></canvas>
 		</div>
 	</div>
+	<div id="graphInfo-container"></div>
 	<div id="preview"></div>
 </div>
 
