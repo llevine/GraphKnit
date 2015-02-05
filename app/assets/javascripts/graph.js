@@ -15,15 +15,18 @@ function Graph(){
 	this.backgroundColor = '#fff';
 	this.element = document.getElementById("graph");
 	this.context = this.element.getContext("2d");
-	this.data = this.element.toDataURL('image/jpeg');
+	this.data = '';
 }
+
+
 
 Graph.prototype.drawGraphTemplate = function(){
 	var context = this.context;
 	// sets the background color to white so when user downloads graph it has a background
 	context.fillStyle = this.backgroundColor;
-	rectangularGrid(context);
-	// squareGrid(context);
+	// rectangularGrid(context);
+	squareGrid(context);
+	this.data = this.element.toDataURL('image/jpeg');
 }
 
 Graph.prototype.cellClick = function(){
@@ -31,34 +34,12 @@ Graph.prototype.cellClick = function(){
 	// gets the graph and adds a click listener to each cell
 	c.addEventListener('click', function(evt) {
 		// gets the position of the mouse
-    var mousePos = getMousePos(c, evt);
-    alert(mousePos.x);
-    alert(mousePos.y);
-    var i = Math.floor(mousePos.x/20);
-    var j = Math.floor(mousePos.y/14);
-    alert('i ' + i);
-    alert('j ' + j);
-
-    // renderCell(i,j);
-    // updateLayout(i,j);
+	    var mousePos = getMousePos(c, evt);
+	    var i = Math.floor(mousePos.x/20);
+	    var j = Math.floor(mousePos.y/14);
+	    renderCell(i,j);
+	    // updateLayout(i,j);
   }, false);
-}
-
-
-
-
-
-
-
-
-Graph.prototype.showInfo = function(){
-	document.getElementById('graph-title').textContent = name;
-	$('#graphInfo-container').append('<span class="info">Created By: </span>' + this.userID);
-	$('#graphInfo-container').append('<span class="info">Category: </span>' + this.category);
-	$('#graphInfo-container').append('<span class="info">Gauge: </span>' + this.gauge);
-	$('#graphInfo-container').append('<span class="info">Number of Colors: </span>' + this.numOfColors);
-	$('#graphInfo-container').append('<span class="info">Notes: </span>' + this.notes);
-	$('#graphInfo-container').append('<span class="info">Privacy Settings: </span>' + this.privacy);
 }
 
 function squareGrid(context){
@@ -101,6 +82,15 @@ function rectangularGrid(context){
 	}
 }
 
+// fills the clicked square with the selected color
+function renderCell(i,j) {
+	var ctx = this.context;
+	ctx.fillStyle = currentColor;
+	// x start,y start, width, length
+	ctx.fillRect((i*20+1),(j*20+1),18,18);
+}
+
+
 Graph.prototype.renderGraph = function(){
 	alert('renderGraph function begins');
 	// alert("type of " this);
@@ -111,6 +101,16 @@ Graph.prototype.renderGraph = function(){
 // // 			blankGraph();
 // // 		}
 
+}
+
+Graph.prototype.showInfo = function(){
+	document.getElementById('graph-title').textContent = name;
+	$('#graphInfo-container').append('<span class="info">Created By: </span>' + this.userID);
+	$('#graphInfo-container').append('<span class="info">Category: </span>' + this.category);
+	$('#graphInfo-container').append('<span class="info">Gauge: </span>' + this.gauge);
+	$('#graphInfo-container').append('<span class="info">Number of Colors: </span>' + this.numOfColors);
+	$('#graphInfo-container').append('<span class="info">Notes: </span>' + this.notes);
+	$('#graphInfo-container').append('<span class="info">Privacy Settings: </span>' + this.privacy);
 }
 
 Graph.prototype.graphInfoForDevOnly = function(){

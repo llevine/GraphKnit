@@ -46,23 +46,17 @@ $(function(){
 		graphModel.showInfo();
 		addEventListeners();
 		graphModel.cellClick();
+
+
 		graphModel.graphInfoForDevOnly();	
 	}
 
-
-
-
-})
-
-
-
-
-
 	function addEventListeners(){
+		console.log('event listeners added');
 		// add click listener to the download btn
 		$('#downloadLnk').click(function(){
 			console.log('graph has been downloaded');
-		  this.href = graphModel.data;
+		  	this.href = graphModel.data;
 		});
 
 		// adds click listener to swatches btn 
@@ -71,10 +65,10 @@ $(function(){
 			$(this).addClass('activeSwatch');
 		});
 
-		$('#deleteGraph').click(function(){
-			console.log('delete button was clicked');
-			graphModel.delete;
-		});
+		// $('#deleteGraph').click(function(){
+		// 	console.log('delete button was clicked');
+		// 	graphModel.delete;
+		// });
 
 		// adds click event listener to savegraph button. saves button on click
 		// $("#saveGraph").click(function(){
@@ -83,7 +77,14 @@ $(function(){
 		// });
 	// }
 	// }
-}
+	}
+
+
+
+})
+
+
+
 
 
 
@@ -154,13 +155,6 @@ function loadGraph(g_id) {
 	});
 }
 
-// fills the clicked square with the selected color
-function renderCell(i,j) {
-	var ctx = getGraphInfo('context');
-	ctx.fillStyle = currentColor;
-	// x start,y start, width, length
-	ctx.fillRect((i*20+1),(j*20+1),18,18);
-}
 
 // gets the mouse position
 function getMousePos(canvas, evt) {
