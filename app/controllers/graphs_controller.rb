@@ -12,6 +12,7 @@ class GraphsController < ApplicationController
   end
 
   def edit
+    @graph = Graph.find(params[:id])
     @colors = Color.all
     puts "************* EDIT **************"
     render :new

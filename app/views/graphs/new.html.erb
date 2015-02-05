@@ -35,7 +35,15 @@
 <% if !params[:id].nil? %>
 	<script>
 	  console.log("Hello, loading " + <%= params[:id] %>);
-	  loadGraph(<%= params[:id] %>);
+	  //loadGraph(<%= params[:id] %>);
+
+	  graphModel = new Graph;
+	  graphModel.name = '<%= @graph.name %>';
+	  graphModel.category = '<%= @graph.category %>';
+	  graphModel.layout = '<%= @graph.layout %>';
+	  graphModel.privacy = <%= @graph.privacy %>;
+	  graphModel.drawGraphTemplate();
+	  graphModel.redraw();
 	</script>
 <% else %>
   <script>console.log("PARAMS ID IS NUL");</script>
