@@ -24,7 +24,9 @@ class GraphsController < ApplicationController
   end
 
   def create
-    render json: Graph.create(graph_params)
+    g = Graph.create(graph_params)
+    g.update(user_id: current_user.id)
+    render json: g
   end
 
   def update

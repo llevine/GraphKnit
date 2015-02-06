@@ -1,9 +1,9 @@
 // this is the graph object
 function Graph(){
-  this.userID = null;
+  this.id = null;
   this.name = 'Untitled Graph';
   this.category = 'Miscellaneous';
-  this.imageURL = '';
+  // this.imageURL = '';
   this.productImage = '';
   this.gauge = null;
   this.graphSize = [0,0];
@@ -24,6 +24,39 @@ function Graph(){
     this.layout += "|" + i + "," + j + "," + c;
   }
 }
+
+Graph.prototype.save = function() {
+  if (this.id == null) { 
+    // key: value
+    $.post("/graphs", { graph: {name: this.name, category: this.category, product_image: this.productImage, gauge: this.gauge, graphSize: this.graphSize, numOfColors: this.numOfColors, layout: this.layout, notes: this.notes, privacy: this.privacy, preview: this.data(), background: this.backgroundColor }
+    }, function( data ) {
+      alert(data);
+      alert(data.id);
+      this.id = data.id;
+    }).done(function() {
+      alert( "second success" );
+    })
+    .fail(function() {
+      alert( "error" );
+    })
+    .always(function() {
+      alert( "finished" );
+    });
+  }
+  else {
+    $.put("/graphs/" + this.id, { graph: {
+      name: this.name, category: this.category, imageURL: this.imageURL, productImage: this.productImage, gauge: this.gauge, graphSize: this.graphSize, numOfColors: this.numOfColors, layout: this.layout, notes: this.notes, privacy: this.privacy, preview: this.preview, background: this.backgroundColor}
+       }, function( data ) {
+      alert('success');
+    });
+  }
+}
+
+// post(url, postdata, callback) {
+//   response = HTTPlibrary.post(url, postdata);
+//   json = ParseJSON(response);
+//   callback(json);
+// }
 
 // fills the clicked square with the selected color
 Graph.prototype.renderCell = function(i,j) {

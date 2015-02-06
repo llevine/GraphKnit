@@ -38,6 +38,7 @@
 	  //loadGraph(<%= params[:id] %>);
 
 	  graphModel = new Graph;
+	  graphModel.id = <%= @graph.id %>;
 	  graphModel.name = '<%= @graph.name %>';
 	  graphModel.category = '<%= @graph.category %>';
 	  graphModel.layout = '<%= @graph.layout %>';

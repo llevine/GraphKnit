@@ -86,13 +86,11 @@ $(function(){
 		// 	graphModel.delete;
 		// });
 
-		// adds click event listener to savegraph button. saves button on click
-		// $("#saveGraph").click(function(){
-		// 	alert('graph was saved!');
-		// 	saveGraph();
-		// });
-	// }
-	// }
+		//adds click event listener to savegraph button. saves button on click
+		$("#saveGraph").click(function(){
+			alert('graph was saved!');
+			graphModel.save();
+		});
 	}
 
 
