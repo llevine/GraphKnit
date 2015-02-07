@@ -39,7 +39,7 @@ class GraphsController < ApplicationController
     # You can't do this because backbone is calling destroy,
     # and it must get a json as a response
     # redirect_to graphs_new_path
-    render json: @graph
+    render json: {success: true}
   end
 
   private

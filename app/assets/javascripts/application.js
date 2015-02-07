@@ -31,10 +31,15 @@
 // currentColor is the color that the cells would change to if clicked.
 var currentColor = '#000';
 
+function setCurrentColor(selection){
+	return currentColor = selection;
+}
+
 //////////////////////////////////////
 //              ON_LOAD             //
 //////////////////////////////////////
 
+// Why is this here???
 var graphModel = null;
 
 // runs when the page has loaded
@@ -47,27 +52,33 @@ $(function(){
 		graphModel = new Graph;
 		graphModel.drawGraphTemplate();
 		graphModel.showInfo();
-		addEventListeners();
-		
-
-
 		graphModel.graphInfoForDevOnly();	
 	}
+	if (graphModel) addEventListeners();
 
 	function addEventListeners(){
 		console.log('event listeners added');
 
-		var c = graphModel.element;
+		// var c = graphModel.element;
+		// // gets the graph and adds a click listener to each cell
+		// c.addEventListener('click', function(evt) {
+		// 	// gets the position of the mouse
+	 //    var mousePos = getMousePos(c, evt);
+	 //    var i = Math.floor(mousePos.x/20);
+	 //    var j = Math.floor(mousePos.y/20);
+	 //    graphModel.renderCell(i,j);
+	 //    graphModel.updateLayout(i,j,currentColor);
+  // 	}, false);
+
 		// gets the graph and adds a click listener to each cell
-		c.addEventListener('click', function(evt) {
+		$('#graph').click(function(evt){
 			// gets the position of the mouse
-	    var mousePos = getMousePos(c, evt);
+	    var mousePos = getMousePos(graphModel.element, evt);
 	    var i = Math.floor(mousePos.x/20);
 	    var j = Math.floor(mousePos.y/20);
 	    graphModel.renderCell(i,j);
 	    graphModel.updateLayout(i,j,currentColor);
-  	}, false);
-
+  	});
 
 		// add click listener to the download btn
 		$('#downloadLnk').click(function(){
@@ -81,28 +92,34 @@ $(function(){
 			$(this).addClass('activeSwatch');
 		});
 
-		// $('#deleteGraph').click(function(){
-		// 	console.log('delete button was clicked');
-		// 	graphModel.delete;
-		// });
-
 		//adds click event listener to savegraph button. saves button on click
 		$("#saveGraph").click(function(){
 			alert('graph was saved!');
 			graphModel.save();
 		});
+
+		$('#deleteGraph').click(function(){
+			console.log('delete button was clicked');
+			if (graphModel.id == null){
+				alert('Graph is not saved');
+			}
+			else {
+				alert(graphModel.id);
+				$.ajax({
+    			type: "DELETE",
+    			url: "/graphs/" + graphModel.id,
+			    success: function(data){   
+			    	alert("success!");
+			      window.location = "/users/" + $('#graphs-new').attr('data-userid');
+			    }
+				});
+			}
+		});
 	}
-
-
-
 })
 
-function setCurrentColor(selection){
-	return currentColor = selection;
-}
-
 // gets the mouse position
-function getMousePos(canvas, evt) {
+function getMousePos(canvas, evt){
   var rect = canvas.getBoundingClientRect();
   return {
     x: evt.clientX - rect.left,
@@ -110,62 +127,3 @@ function getMousePos(canvas, evt) {
   };
 }
 
-
-
-
-
-// function showGraph(){
-// 	var graphID = $('#show-graph').attr('data-graphid');
-// 	// document.getElementById('graph-title').textContent = name;
-// 	loadGraph(graphID);
-// }
-
-// function saveGraph(){
-// 			console.log("You clicked save!");
-// 			var dt = getGraphInfo('data');
-// 			// updatePreview(dt);
-// 			graphModel.set('preview', dt);
-			
-// 			// checks to see if the graph has been saved before. if it hasn't it will create a new entry in the db. if it is already in the db it will update the graph
-// 			var isNew = (graphModel.id == null);
-// 			graphModel.save(null, {
-// 				success: function() {
-// 					if (isNew) {
-// 						saveUserID();
-// 						//$('#actions').append('<a href="#" onclick="loadGraph(' + graphModel.id + ')">' + graphModel.id + '</a>');
-// 					}
-// 				}
-// 			});
-// }
-
-// function saveUserID(){
-// 		var userID = $('#graphs-new').attr('data-userid');
-// 		// console.log("current user is: " + $('#graphs-new').attr('data-userid'));
-// 		graphModel.set("user_id", userID);
-// 		// console.log('the model has a user id of: ' + graphModel.get('user_id'));
-// 		graphModel.save(null, {
-// 			success: function() {
-// 				console.log('saved ' + graphModel.get('user_id'));
-// 			}
-// 		});
-// }
-
-
-
-// function loadGraph(g_id) {
-// 	console.log("Loading: " + g_id);
-// 	blankGraph();
-// 	graphModel = new App.Models.Graph({id: g_id});
-// 	graphModel.fetch({
-// 		success: function() {
-// 			graphModel.get('layout').split('|').forEach(function(triple) {
-// 				var t = triple.split(",");
-// 				if (t.length == 3) {
-// 					currentColor = t[2];
-// 					renderCell(t[0], t[1]);
-// 				}
-// 			});
-// 		},
-// 		error: function() { console.log("Object doesn't exist!"); }
-// 	});
-// }

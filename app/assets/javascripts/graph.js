@@ -3,8 +3,8 @@ function Graph(){
   this.id = null;
   this.name = 'Untitled Graph';
   this.category = 'Miscellaneous';
-  // this.imageURL = '';
-  this.productImage = '';
+  // this.image_url = '';
+  this.product_image = '';
   this.gauge = null;
   this.graphSize = [0,0];
   this.numOfColors = 1;
@@ -26,28 +26,25 @@ function Graph(){
 }
 
 Graph.prototype.save = function() {
+  var localGraph = this;
+  localGraph.preview = localGraph.data();
   if (this.id == null) { 
     // key: value
-    $.post("/graphs", { graph: {name: this.name, category: this.category, product_image: this.productImage, gauge: this.gauge, graphSize: this.graphSize, numOfColors: this.numOfColors, layout: this.layout, notes: this.notes, privacy: this.privacy, preview: this.data(), background: this.backgroundColor }
-    }, function( data ) {
-      alert(data);
-      alert(data.id);
-      this.id = data.id;
-    }).done(function() {
-      alert( "second success" );
-    })
-    .fail(function() {
-      alert( "error" );
-    })
-    .always(function() {
-      alert( "finished" );
+    $.post("/graphs", { graph: { name: this.name, category: this.category, image_url: this.image_url, product_image: this.product_image, layout: this.layout, notes: this.notes, privacy: this.privacy, preview: this.preview }}, function( data ) {
+      // alert("data " + data);
+      // alert("data id " + data.id);
+      alert("on success:" + data.id);
+      localGraph.id = data.id;
+
     });
-  }
-  else {
-    $.put("/graphs/" + this.id, { graph: {
-      name: this.name, category: this.category, imageURL: this.imageURL, productImage: this.productImage, gauge: this.gauge, graphSize: this.graphSize, numOfColors: this.numOfColors, layout: this.layout, notes: this.notes, privacy: this.privacy, preview: this.preview, background: this.backgroundColor}
-       }, function( data ) {
-      alert('success');
+  } else {
+    $.ajax({
+        url: "/graphs/" + this.id,
+        type: "PUT",
+        data: { graph: { name: this.name, category: this.category, product_image: this.productImage, gauge: this.gauge, graphSize: this.graphSize, numOfColors: this.numOfColors, layout: this.layout, notes: this.notes, privacy: this.privacy, preview: this.data(), background: this.backgroundColor }},
+        success: function( data ) {
+          alert('success');
+        }
     });
   }
 }
@@ -60,7 +57,7 @@ Graph.prototype.save = function() {
 
 // fills the clicked square with the selected color
 Graph.prototype.renderCell = function(i,j) {
-  alert("inside renderCell");
+  //alert("inside renderCell");
   var ctx = this.context;
   ctx.fillStyle = currentColor;
   // x start,y start, width, length
