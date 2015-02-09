@@ -39,7 +39,6 @@ function setCurrentColor(selection){
 //              ON_LOAD             //
 //////////////////////////////////////
 
-// Why is this here???
 var graphModel = null;
 
 // runs when the page has loaded
@@ -47,28 +46,22 @@ $(function(){
 	console.log('the page has loaded');	
 
 	// checks to see if the container graphs-new is on the page. if so then it will run the js on page load
-	//if ($('#graphs-new').length === 1){
-	if (graphModel == null) {
+	if ($('#graphs-new').length === 1 && graphModel == null){
+		alert('got here');
+	// if (graphModel == null) {
 		graphModel = new Graph;
 		graphModel.drawGraphTemplate();
 		graphModel.showInfo();
 		graphModel.graphInfoForDevOnly();	
+		addEventListeners();
 	}
-	if (graphModel) addEventListeners();
+	if (graphModel){
+		alert("graph model is present");
+		addEventListeners();
+	}
 
 	function addEventListeners(){
 		console.log('event listeners added');
-
-		// var c = graphModel.element;
-		// // gets the graph and adds a click listener to each cell
-		// c.addEventListener('click', function(evt) {
-		// 	// gets the position of the mouse
-	 //    var mousePos = getMousePos(c, evt);
-	 //    var i = Math.floor(mousePos.x/20);
-	 //    var j = Math.floor(mousePos.y/20);
-	 //    graphModel.renderCell(i,j);
-	 //    graphModel.updateLayout(i,j,currentColor);
-  // 	}, false);
 
 		// gets the graph and adds a click listener to each cell
 		$('#graph').click(function(evt){

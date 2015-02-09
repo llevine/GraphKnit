@@ -15,7 +15,6 @@ function Graph(){
   this.backgroundColor = '#fff';
   this.element = document.getElementById("graph");
   this.context = this.element.getContext("2d");
-  //this.data = this.element.toDataURL('image/jpeg');
   this.data = function() {
     return this.element.toDataURL('image/jpeg');
   }
@@ -35,7 +34,6 @@ Graph.prototype.save = function() {
       // alert("data id " + data.id);
       alert("on success:" + data.id);
       localGraph.id = data.id;
-
     });
   } else {
     $.ajax({
