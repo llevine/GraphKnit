@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get 'graphs/show/:id' => 'graphs#show'
   get 'graphs/edit/:id' => 'graphs#edit'
 
+  get 'graphs/editinfo/:id' => 'graphs#edit_info'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

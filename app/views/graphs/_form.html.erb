@@ -1,0 +1,23 @@
+<!-- this form will be used to alter the graph information-->
+<%= form_for @graph do |f| %>
+  <div class="input">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="input">
+    <%= f.label :category %>
+    <%= f.text_field :category %>
+  </div>
+
+  <div class="input">
+    <%= f.label :notes %>
+    <%= f.text_field :notes %>
+  </div>
+  
+  <div class="input" id="delete">
+    <%= link_to "Delete Graph", graphs_path(@graph), method: :delete %>
+  </div>
+
+  <%= f.submit "Submit", :id=>"submit" %>
+<% end %>

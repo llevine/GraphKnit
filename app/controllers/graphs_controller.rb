@@ -18,6 +18,10 @@ class GraphsController < ApplicationController
     render :new
   end
 
+  def edit_info
+    @graph = Graph.find(params[:id])
+  end
+
   def new
     @colors = Color.all
     @graph = Graph.new

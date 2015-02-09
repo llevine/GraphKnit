@@ -9,6 +9,8 @@
 			<div id="actions">
 				<a class='button' id="saveGraph">Save</a>
 				<a class='button' id="downloadLnk" download="MyGraph.jpg">Download Graph</a>
+
+				<!-- move below button to the edit info page????? -->
 				<a class='button' id="deleteGraph" >Delete</a>
 			</div>
 		<% end %>
@@ -28,7 +30,31 @@
 			<!-- <canvas id="graph" width="1400" height="740"></canvas> -->
 		</div>
 	</div>
-	<div id="graphInfo-container"></div>
+	<div id="graphInfo-container">
+		<a class='button' id="editInfo">Edit Info</a>
+	 	<%= form_for @graph do |f| %>
+		  <div class="input">
+		    <%= f.label :name %>
+		    <%= f.text_field :name %>
+		  </div>
+
+		  <div class="input">
+		    <%= f.label :category %>
+		    <%= f.text_field :category %>
+		  </div>
+
+		  <div class="input">
+		    <%= f.label :notes %>
+		    <%= f.text_field :notes %>
+		  </div>
+
+		  <div class="input" id="delete">
+		    <%= link_to "Delete Graph", graphs_path(@graph), method: :delete %>
+		  </div>
+
+		  <%= f.submit "Submit", :id=>"submit" %>
+		<% end %>
+	</div>
 	<div id="preview"></div>
 </div>
 

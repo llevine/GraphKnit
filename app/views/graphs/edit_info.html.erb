@@ -1,0 +1,9 @@
+<div class="form" id="signup">
+	<div>
+		<h1>Edit Your Graph's Information</h1>
+		<% if @user.errors.any? %>
+		    <h3 style="color:#fa4f20">Please fix the appropriate fields:</h3>
+		<% end %>
+		<%= render 'form' %>
+	</div>
+</div>

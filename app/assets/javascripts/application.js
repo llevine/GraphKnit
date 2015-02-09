@@ -54,8 +54,15 @@ $(function(){
 		graphModel.showInfo();
 		graphModel.graphInfoForDevOnly();	
 	}
-	if (graphModel) addEventListeners();
-
+	if (graphModel != null) {
+		$("#editInfo").click(function() {
+	        $("#graphInfo-container #graph_name").text($(this).val().trim());
+	        $("#graphInfo-container input[type=text]").val('');
+	        $("#valueFromMyModal").val('');
+	        $("#graphInfo-container").show(500);
+		});
+		addEventListeners();
+	}
 	function addEventListeners(){
 		console.log('event listeners added');
 
