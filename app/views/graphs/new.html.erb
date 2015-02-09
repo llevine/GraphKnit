@@ -32,28 +32,22 @@
 	</div>
 	<div id="graphInfo-container">
 		<a class='button' id="editInfo">Edit Info</a>
-	 	<%= form_for @graph do |f| %>
-		  <div class="input">
-		    <%= f.label :name %>
-		    <%= f.text_field :name %>
-		  </div>
+		<form>
+			<%= token_tag %>
 
-		  <div class="input">
-		    <%= f.label :category %>
-		    <%= f.text_field :category %>
-		  </div>
+			<label for="name">Graph Name:</label>
+			<input name="graph[name]" type="text" value="<%= @graph.name %>" />
+			<br>
 
-		  <div class="input">
-		    <%= f.label :notes %>
-		    <%= f.text_field :notes %>
-		  </div>
+			<label for="category">Category:</label>
+			<input name="graph[category]" type="text" value="<%= @graph.category %>" />
+			<br>
 
-		  <div class="input" id="delete">
-		    <%= link_to "Delete Graph", graphs_path(@graph), method: :delete %>
-		  </div>
+			<label for="notes">Category:</label>
+			<input name="graph[notes]" type="text" value="<%= @graph.notes %>" />
 
-		  <%= f.submit "Submit", :id=>"submit" %>
-		<% end %>
+			<input name="submit" type="submit" value="Update Graph Info" />
+		</form>
 	</div>
 	<div id="preview"></div>
 </div>
@@ -75,4 +69,3 @@
 <% else %>
   <script>console.log("PARAMS ID IS NUL");</script>
 <% end %>
-
