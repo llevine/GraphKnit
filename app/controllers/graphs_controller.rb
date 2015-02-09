@@ -12,6 +12,7 @@ class GraphsController < ApplicationController
   end
 
   def edit
+    @graph = Graph.find(params[:id])
     @colors = Color.all
     puts "************* EDIT **************"
     render :new
@@ -23,7 +24,9 @@ class GraphsController < ApplicationController
   end
 
   def create
-    render json: Graph.create(graph_params)
+    g = Graph.create(graph_params)
+    g.update(user_id: current_user.id)
+    render json: g
   end
 
   def update
@@ -36,7 +39,7 @@ class GraphsController < ApplicationController
     # You can't do this because backbone is calling destroy,
     # and it must get a json as a response
     # redirect_to graphs_new_path
-    render json: @graph
+    render json: {success: true}
   end
 
   private

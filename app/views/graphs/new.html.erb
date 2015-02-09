@@ -1,6 +1,5 @@
 <script>
 	$('#new').css({'border-radius':'5px', 'border':'2.5px solid #fd724c', 'padding':'5px', 'color':'white'}); 
-		// $('#new').css({'background-color':'#fd724c', 'border':'1px solid #c3c3c3', 'color':'white'}); 
 		</script>
 
 <div class='container' id='graphs-new' <% if session[:current_user_id] %>data-userid='<%= current_user.id %>'<% end %>>
@@ -10,12 +9,8 @@
 			<div id="actions">
 				<a class='button' id="saveGraph">Save</a>
 				<a class='button' id="downloadLnk" download="MyGraph.jpg">Download Graph</a>
-				<a class='button' id="deleteGraph">Delete</a>
+				<a class='button' id="deleteGraph" >Delete</a>
 			</div>
-		<% else %>
-		<div id="actions">
-			<%= link_to "Save Graph", { controller: "sessions", action: "new" }, :onclick => 'saveGraph()', class: "button" %>
-		</div>
 		<% end %>
 		<div style='display: inline-block;'>
 			<h3 id='swatch-head'>Swatches</h3>
@@ -30,15 +25,26 @@
 		<div id='graph-container'>
 			<h3 id='graph-title'></h3>
 			<canvas id="graph" width="800" height="800"></canvas>
+			<!-- <canvas id="graph" width="1400" height="740"></canvas> -->
 		</div>
 	</div>
+	<div id="graphInfo-container"></div>
 	<div id="preview"></div>
 </div>
 
 <% if !params[:id].nil? %>
 	<script>
 	  console.log("Hello, loading " + <%= params[:id] %>);
-	  loadGraph(<%= params[:id] %>);
+	  //loadGraph(<%= params[:id] %>);
+
+	  graphModel = new Graph;
+	  graphModel.id = <%= @graph.id %>;
+	  graphModel.name = '<%= @graph.name %>';
+	  graphModel.category = '<%= @graph.category %>';
+	  graphModel.layout = '<%= @graph.layout %>';
+	  graphModel.privacy = <%= @graph.privacy %>;
+	  graphModel.drawGraphTemplate();
+	  graphModel.redraw();
 	</script>
 <% else %>
   <script>console.log("PARAMS ID IS NUL");</script>

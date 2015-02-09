@@ -48,11 +48,6 @@ li.nav_link {
 	color: rgba(195, 195, 195, .3);
 }
 
-/*li.nav_link a:hover {
-	border: 1px solid #c3c3c3;
-	color: white;
-}*/
-
 #my:active {
 	background-color: #ab47c4;
 }

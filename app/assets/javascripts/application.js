@@ -24,191 +24,100 @@
 //= require_tree ./templates
 //= require_tree .
 
-var App = {
-	Models: {}, 
-	Collections: {}, 
-	Views: {}, 
-	Routers: {},
-};
+//////////////////////////////////////
+//         GLOBAL VARIABLES         //
+//////////////////////////////////////
 
-
-// global variable that stores the color to be used on the grid. Set the default color to black.
+// currentColor is the color that the cells would change to if clicked.
 var currentColor = '#000';
-var backgroundColor = '#fff'
-
-// ------------------------------------------------------------------------------------------- //
-// ------------------------------------------------------------------------------------------- //
 
 function setCurrentColor(selection){
 	return currentColor = selection;
 }
 
-// runs when the page has loaded.
-$(function(){	
+//////////////////////////////////////
+//              ON_LOAD             //
+//////////////////////////////////////
+
+var graphModel = null;
+
+// runs when the page has loaded
+var ready;
+ready = function() {	
 	console.log('the page has loaded');	
+
 	// checks to see if the container graphs-new is on the page. if so then it will run the js on page load
-	if ($('#graphs-new').length === 1){
-		if (typeof(graphModel) == "undefined" || graphModel == null) {
-			graphModel = new App.Models.Graph;
-			var name = graphModel.get('name');
-			document.getElementById('graph-title').textContent = name;
-			blankGraph();
-		}
-		listeningForCellClick();
-		// renderPreview();
-		// to download the graph as a jpeg.
-		// You can even change the file-name dynamically by setting the attribute downloadLnk.download = 'myFilename.jpg'.
+	if ($('#graphs-new').length === 1 && graphModel == null){
+		alert('got here');
+	// if (graphModel == null) {
+		graphModel = new Graph;
+		graphModel.drawGraphTemplate();
+		graphModel.showInfo();
+		graphModel.graphInfoForDevOnly();	
+		addEventListeners();
+	}
+	if (graphModel){
+		alert("graph model is present");
+		addEventListeners();
+		currentColor = '#000';
+	}
+
+	function addEventListeners(){
+		console.log('event listeners added');
+
+		// gets the graph and adds a click listener to each cell
+		$('#graph').click(function(evt){
+			// gets the position of the mouse
+	    var mousePos = getMousePos(graphModel.element, evt);
+	    var i = Math.floor(mousePos.x/20);
+	    var j = Math.floor(mousePos.y/20);
+	    graphModel.renderCell(i,j);
+	    graphModel.updateLayout(i,j,currentColor);
+  	});
+
+		// add click listener to the download btn
 		$('#downloadLnk').click(function(){
 			console.log('graph has been downloaded');
-			var dt = getGraphInfo('data');
-	    this.href = dt;
-	    // updatePreview(dt);
+		  this.href = graphModel.data();
 		});
 
-// adds click event listener to swatches to style the active swatch 
+		// adds click listener to swatches btn 
 		$('.swatch').click(function(){
 			$('.swatch').removeClass('activeSwatch');
 			$(this).addClass('activeSwatch');
 		});
 
-		$('#deleteGraph').click(function(){
-			console.log('delete button was clicked');
-			graphModel.destroy({
-				success: function() {
-					console.log('graph deleted');
-					graphModel = new App.Models.Graph;
-					blankGraph();
-				}
-			})
-		})
-
-		// adds click event listener to savegraph button. saves button on click
+		//adds click event listener to savegraph button. saves button on click
 		$("#saveGraph").click(function(){
 			alert('graph was saved!');
-			saveGraph();
+			graphModel.save();
 		});
-	}
-})
 
-function showGraph(){
-	var graphID = $('#show-graph').attr('data-graphid');
-	// document.getElementById('graph-title').textContent = name;
-	loadGraph(graphID);
-}
-
-function saveGraph(){
-			console.log("You clicked save!");
-			var dt = getGraphInfo('data');
-			// updatePreview(dt);
-			graphModel.set('preview', dt);
-			
-			// checks to see if the graph has been saved before. if it hasn't it will create a new entry in the db. if it is already in the db it will update the graph
-			var isNew = (graphModel.id == null);
-			graphModel.save(null, {
-				success: function() {
-					if (isNew) {
-						saveUserID();
-						//$('#actions').append('<a href="#" onclick="loadGraph(' + graphModel.id + ')">' + graphModel.id + '</a>');
-					}
-				}
-			});
-}
-
-function saveUserID(){
-		var userID = $('#graphs-new').attr('data-userid');
-		// console.log("current user is: " + $('#graphs-new').attr('data-userid'));
-		graphModel.set("user_id", userID);
-		// console.log('the model has a user id of: ' + graphModel.get('user_id'));
-		graphModel.save(null, {
-			success: function() {
-				console.log('saved ' + graphModel.get('user_id'));
+		$('#deleteGraph').click(function(){
+			console.log('delete button was clicked');
+			if (graphModel.id == null){
+				alert('Graph is not saved');
+			}
+			else {
+				alert(graphModel.id);
+				$.ajax({
+    			type: "DELETE",
+    			url: "/graphs/" + graphModel.id,
+			    success: function(data){   
+			    	alert("success!");
+			      window.location = "/users/" + $('#graphs-new').attr('data-userid');
+			    }
+				});
 			}
 		});
-}
-
-// function updatePreview(dt){
-// 	$('#preview').empty();
-// 	$('#preview').append('<h3>Graph Saved!</h3><img id="thumbnail" src="'+dt+'">');
-// }
-
-// function gets the graph context
-function getGraphInfo(type){
-	var c = document.getElementById("graph");
-	if (type == 'element'){
-		return c;
-	}
-	else if (type == 'context'){
-		return c.getContext("2d");
-	}
-	else if (type == 'data'){
-		return c.toDataURL('image/jpeg');
 	}
 }
 
-// adds the graph to the dom
-function blankGraph(){
-	var ctx = getGraphInfo('context');
-
-	// adds a white rectangle behind the graph, so when download the graph as jpeg background is white, NOT black
-	ctx.fillStyle = backgroundColor;
-	ctx.fillRect(0,0,800,800);
-	// draws the horizontal lines
-	for (var i=0; i<=40; i++){
-		// (y, x)
-		ctx.moveTo(0, i*20);
-		ctx.lineTo(800, i*20);
-		ctx.stroke();
-	}
-	// draws the vertical lines
-	for (var i=0; i<=40; i++){
-		ctx.moveTo(i*20, 0);
-		ctx.lineTo(i*20, 800);
-		ctx.stroke();
-	}
-}
-
-function listeningForCellClick() {
-	// gets the graph and adds a click listener to each cell
-	var c = getGraphInfo('element'); 
-	// gives you the starting cell
-	c.addEventListener('click', function(evt) {
-		// gets the position of the mouse
-      var mousePos = getMousePos(c, evt);
-      var i = Math.floor(mousePos.x/20);
-      var j = Math.floor(mousePos.y/20);
-      renderCell(i,j);
-      updateLayout(i,j);
-  }, false);
-}
-
-function loadGraph(g_id) {
-	console.log("Loading: " + g_id);
-	blankGraph();
-	graphModel = new App.Models.Graph({id: g_id});
-	graphModel.fetch({
-		success: function() {
-			graphModel.get('layout').split('|').forEach(function(triple) {
-				var t = triple.split(",");
-				if (t.length == 3) {
-					currentColor = t[2];
-					renderCell(t[0], t[1]);
-				}
-			});
-		},
-		error: function() { console.log("Object doesn't exist!"); }
-	});
-}
-
-// fills the clicked square with the selected color
-function renderCell(i,j) {
-	var ctx = getGraphInfo('context');
-	ctx.fillStyle = currentColor;
-	// x start,y start, width, length
-	ctx.fillRect((i*20+1),(j*20+1),18,18);
-}
+$(document).ready(ready);
+$(document).on('page:load', ready);
 
 // gets the mouse position
-function getMousePos(canvas, evt) {
+function getMousePos(canvas, evt){
   var rect = canvas.getBoundingClientRect();
   return {
     x: evt.clientX - rect.left,
@@ -216,8 +125,3 @@ function getMousePos(canvas, evt) {
   };
 }
 
-function updateLayout(i,j){
-	var s = graphModel.get('layout');
-	s += "|" + i + "," + j + "," + currentColor;
-	graphModel.set('layout', s);
-}
