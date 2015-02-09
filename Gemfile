@@ -43,3 +43,7 @@ gem 'backbars'
 gem 'pry-rails', group: :development
 gem "rails-assets-underscore", source: "https://rails-assets.org"
 gem "rails-assets-backbone", source: "https://rails-assets.org"
+
+group :production do
+  gem 'rails_12factor'
+end
