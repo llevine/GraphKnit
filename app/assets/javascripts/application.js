@@ -42,7 +42,8 @@ function setCurrentColor(selection){
 var graphModel = null;
 
 // runs when the page has loaded
-$(function(){	
+var ready;
+ready = function() {	
 	console.log('the page has loaded');	
 
 	// checks to see if the container graphs-new is on the page. if so then it will run the js on page load
@@ -58,6 +59,7 @@ $(function(){
 	if (graphModel){
 		alert("graph model is present");
 		addEventListeners();
+		currentColor = '#000';
 	}
 
 	function addEventListeners(){
@@ -109,7 +111,10 @@ $(function(){
 			}
 		});
 	}
-})
+}
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
 
 // gets the mouse position
 function getMousePos(canvas, evt){
