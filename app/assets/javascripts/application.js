@@ -48,7 +48,7 @@ ready = function() {
 
 	// checks to see if the container graphs-new is on the page. if so then it will run the js on page load
 	if ($('#graphs-new').length === 1 && graphModel == null){
-		alert('got here');
+		console.log('got here');
 	// if (graphModel == null) {
 		graphModel = new Graph;
 		graphModel.drawGraphTemplate();
@@ -57,7 +57,7 @@ ready = function() {
 		addEventListeners();
 	}
 	if (graphModel){
-		alert("graph model is present");
+		console.log("graph model is present");
 		addEventListeners();
 		currentColor = '#000';
 	}
@@ -89,22 +89,22 @@ ready = function() {
 
 		//adds click event listener to savegraph button. saves button on click
 		$("#saveGraph").click(function(){
-			alert('graph was saved!');
+			console.log('graph was saved!');
 			graphModel.save();
 		});
 
 		$('#deleteGraph').click(function(){
 			console.log('delete button was clicked');
 			if (graphModel.id == null){
-				alert('Graph is not saved');
+				console.log('Graph is not saved');
 			}
 			else {
-				alert(graphModel.id);
+				console.log(graphModel.id);
 				$.ajax({
     			type: "DELETE",
     			url: "/graphs/" + graphModel.id,
 			    success: function(data){   
-			    	alert("success!");
+			    	console.log("success!");
 			      window.location = "/users/" + $('#graphs-new').attr('data-userid');
 			    }
 				});

@@ -30,9 +30,9 @@ Graph.prototype.save = function() {
   if (this.id == null) { 
     // key: value
     $.post("/graphs", { graph: { name: this.name, category: this.category, image_url: this.image_url, product_image: this.product_image, layout: this.layout, notes: this.notes, privacy: this.privacy, preview: this.preview }}, function( data ) {
-      // alert("data " + data);
-      // alert("data id " + data.id);
-      alert("on success:" + data.id);
+      // console.log("data " + data);
+      // console.log("data id " + data.id);
+      console.log("on success:" + data.id);
       localGraph.id = data.id;
     });
   } else {
@@ -41,7 +41,7 @@ Graph.prototype.save = function() {
         type: "PUT",
         data: { graph: { name: this.name, category: this.category, product_image: this.productImage, gauge: this.gauge, graphSize: this.graphSize, numOfColors: this.numOfColors, layout: this.layout, notes: this.notes, privacy: this.privacy, preview: this.data(), background: this.backgroundColor }},
         success: function( data ) {
-          alert('success');
+          console.log('success');
         }
     });
   }
@@ -55,7 +55,7 @@ Graph.prototype.save = function() {
 
 // fills the clicked square with the selected color
 Graph.prototype.renderCell = function(i,j) {
-  //alert("inside renderCell");
+  //console.log("inside renderCell");
   var ctx = this.context;
   ctx.fillStyle = currentColor;
   // x start,y start, width, length
