@@ -52,7 +52,7 @@ ready = function() {
 	// if (graphModel == null) {
 		graphModel = new Graph;
 		graphModel.drawGraphTemplate();
-		graphModel.showInfo();
+		//graphModel.showInfo();
 		graphModel.graphInfoForDevOnly();	
 		addEventListeners();
 	}
