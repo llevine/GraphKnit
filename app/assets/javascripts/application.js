@@ -89,7 +89,8 @@ ready = function() {
 
 		//adds click event listener to savegraph button. saves button on click
 		$("#saveGraph").click(function(){
-			alert('button was clicked saved!');
+			alert('Graph Was Saved!');
+			// $('#graphs-new').prepend('Graph Was Saved!' + '<br>');
 			graphModel.save();
 		});
 

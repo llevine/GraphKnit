@@ -27,8 +27,6 @@ function Graph(){
 Graph.prototype.save = function() {
   var localGraph = this;
   localGraph.preview = localGraph.data();
-  alert(this.id);
-  alert(localGraph.id);
   if (this.id == null) { 
     // key: value
     $.post("/graphs", { graph: { name: this.name, category: this.category, image_url: this.image_url, product_image: this.product_image, layout: this.layout, notes: this.notes, privacy: this.privacy, preview: this.preview }}, function( data ) {
