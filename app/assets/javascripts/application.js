@@ -47,19 +47,19 @@ ready = function() {
 	console.log('the page has loaded');	
 
 	// checks to see if the container graphs-new is on the page. if so then it will run the js on page load
-	if ($('#graphs-new').length === 1 && graphModel == null){
-		console.log('got here');
-	// if (graphModel == null) {
-		graphModel = new Graph;
-		graphModel.drawGraphTemplate();
-		//graphModel.showInfo();
-		graphModel.graphInfoForDevOnly();	
+	if ($('#graphs-new').length === 1){
+		if (graphModel == null){
+			console.log('got here');
+			graphModel = new Graph;
+			graphModel.drawGraphTemplate();
+			//graphModel.showInfo();
+			graphModel.graphInfoForDevOnly();	
+		}
+		else {
+			console.log("graph model is present");
+			currentColor = '#000';
+		}
 		addEventListeners();
-	}
-	if (graphModel){
-		console.log("graph model is present");
-		addEventListeners();
-		currentColor = '#000';
 	}
 
 	function addEventListeners(){
@@ -89,7 +89,7 @@ ready = function() {
 
 		//adds click event listener to savegraph button. saves button on click
 		$("#saveGraph").click(function(){
-			console.log('graph was saved!');
+			alert('button was clicked saved!');
 			graphModel.save();
 		});
 

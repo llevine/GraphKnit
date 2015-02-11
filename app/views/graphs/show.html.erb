@@ -1,5 +1,3 @@
-<script>showGraph();</script>
-
 <div class='container' id='show-graph' data-graphid='<%= @graph.id %>'>
 	<div id='graph-buttons-container'>
 <!-- 		<div id="actions">
@@ -12,3 +10,21 @@
 		</div>
 	</div>
 </div>
+
+<% if !params[:id].nil? %>
+	<script>
+	  console.log("Hello, loading " + <%= params[:id] %>);
+	  //loadGraph(<%= params[:id] %>);
+
+	  graphModel = new Graph;
+	  graphModel.id = <%= @graph.id %>;
+	  graphModel.name = '<%= @graph.name %>';
+	  graphModel.category = '<%= @graph.category %>';
+	  graphModel.layout = '<%= @graph.layout %>';
+	  graphModel.privacy = <%= @graph.privacy %>;
+	  graphModel.drawGraphTemplate();
+	  graphModel.redraw();
+	</script>
+<% else %>
+  <script>console.log("PARAMS ID IS NUL");</script>
+<% end %>
